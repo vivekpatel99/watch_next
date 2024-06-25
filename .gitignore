@@ -142,7 +142,7 @@ proguard/
 
 # Android Studio Navigation editor temp files
 .navigation/
-
+/assets/.env
 # Android Studio captures folder
 captures/
 
