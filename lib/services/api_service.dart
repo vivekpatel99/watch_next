@@ -11,5 +11,5 @@ class ApiService {
   // get list of Sessions
   // Search all the episode details from each Session
   // https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}?api_key=dotenv.env['API_KEY']
-  static const String 
+  // static const String
 }
