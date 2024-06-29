@@ -1,3 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:watch_next/datamodels/created_by.dart';
 import 'package:watch_next/datamodels/genre.dart';
 import 'package:watch_next/datamodels/network.dart';
@@ -99,4 +102,85 @@ class TvSeriesItemModel {
         voteAverage: json['vote_average'] as double,
         voteCount: json['vote_count'] as int,
       );
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'adult': adult,
+      'backdropPath': backdropPath,
+      'createdBy': createdBy.map((x) => x.toMap()).toList(),
+      'episodeRunTime': episodeRunTime,
+      'firstAirDate': firstAirDate,
+      'genres': genres.map((x) => x.toMap()).toList(),
+      'homepage': homepage,
+      'id': id,
+      'inProduction': inProduction,
+      'languages': languages,
+      'lastAirDate': lastAirDate,
+      'name': name,
+      'nextEpisodeToAir': nextEpisodeToAir.toMap(),
+      'networks': networks.map((x) => x.toMap()).toList(),
+      'numberOfEpisodes': numberOfEpisodes,
+      'numberOfSeasons': numberOfSeasons,
+      'originCountry': originCountry,
+      'originalLanguage': originalLanguage,
+      'overview': overview,
+      'posterPath': posterPath,
+      'seasons': seasons.map((x) => x.toMap()).toList(),
+      'status': status,
+      'tagline': tagline,
+      'voteAverage': voteAverage,
+      'voteCount': voteCount,
+    };
+  }
+
+  factory TvSeriesItemModel.fromMap(Map<String, dynamic> map) {
+    return TvSeriesItemModel(
+      adult: map['adult'] as bool,
+      backdropPath: map['backdropPath'] as String,
+      createdBy: List<CreatedBy>.from(
+        (map['createdBy'] as List<int>).map<CreatedBy>(
+          (x) => CreatedBy.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      episodeRunTime: List<int>.from((map['episodeRunTime'] as List<int>)),
+      firstAirDate: map['firstAirDate'] as String,
+      genres: List<Genre>.from(
+        (map['genres'] as List<int>).map<Genre>(
+          (x) => Genre.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      homepage: map['homepage'] as String,
+      id: map['id'] as int,
+      inProduction: map['inProduction'] as bool,
+      languages: List<String>.from((map['languages'] as List<String>)),
+      lastAirDate: map['lastAirDate'] as String,
+      name: map['name'] as String,
+      nextEpisodeToAir: NextEpisodeToAir.fromMap(
+          map['nextEpisodeToAir'] as Map<String, dynamic>),
+      networks: List<Network>.from(
+        (map['networks'] as List<int>).map<Network>(
+          (x) => Network.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      numberOfEpisodes: map['numberOfEpisodes'] as int,
+      numberOfSeasons: map['numberOfSeasons'] as int,
+      originCountry: List<String>.from((map['originCountry'] as List<String>)),
+      originalLanguage: map['originalLanguage'] as String,
+      overview: map['overview'] as String,
+      posterPath: map['posterPath'] as String,
+      seasons: List<Season>.from(
+        (map['seasons'] as List<int>).map<Season>(
+          (x) => Season.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      status: map['status'] as String,
+      tagline: map['tagline'] as String,
+      voteAverage: map['voteAverage'] as double,
+      voteCount: map['voteCount'] as int,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  // factory TvSeriesItemModel.fromJson(String source) => TvSeriesItemModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }

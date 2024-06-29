@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:watch_next/common/mylogger.dart';
 import 'package:watch_next/ui/common/app_colors.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
 
@@ -14,6 +15,8 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
+    final log = getLogger('HomeView');
+    log.i('HomeView started');
     return Scaffold(
       body: SafeArea(
         child: Padding(

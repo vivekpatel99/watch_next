@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:logger/logger.dart';
 import 'package:watch_next/app/app.bottomsheets.dart';
 import 'package:watch_next/app/app.dialogs.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:watch_next/common/mylogger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +14,7 @@ Future<void> main() async {
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
+  Logger.level = Level.all;
   runApp(const MainApp());
 }
 
@@ -20,8 +23,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final log = getLogger('MainApp');
+    log.i('MainApp started');
     return MaterialApp(
-      initialRoute: Routes.startupView,
+      initialRoute: Routes.homeView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [

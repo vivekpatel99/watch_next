@@ -10,16 +10,16 @@ class ApiConstants {
   static String apiEndpoint = dotenv.env['API_ENDPOINT']!;
   static String apiKey = dotenv.env['API_KEY']!;
 
-  static String constructSearchTVSeriesUrl(String query) {
-    return '${apiEndpoint}search/tv?query=$query&api_key=$apiKey';
+  static String constructSearchTVSeriesUrl({required String tvSeriesName}) {
+    return '${apiEndpoint}search/tv?query=$tvSeriesName&api_key=$apiKey';
   }
 
-  static String constructFetchTVSeriesDetailsUrl(int seriesId) {
+  static String constructFetchTVSeriesDetailsUrl({required int seriesId}) {
     return '${apiEndpoint}tv/$seriesId?api_key=$apiKey}';
   }
 
   static String constructFetchTVSeriesEpisodesUrl(
-      int seriesId, int seasonNumber) {
+      {required int seriesId, required int seasonNumber}) {
     return '${apiEndpoint}tv/$seriesId/season/$seasonNumber}?api_key=$apiKey';
   }
 }
