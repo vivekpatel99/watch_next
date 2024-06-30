@@ -29,6 +29,7 @@ class ApiService {
 
     // Check for successful response
     if (response.statusCode == 200) {
+      log.i('Requst Response - ${response.statusCode}');
       // Decode the JSON response
       return jsonDecode(response.body);
     } else {
@@ -48,6 +49,7 @@ class ApiService {
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
               .toList();
+      log.d(searchTvSeries);
       return searchTvSeries;
     } catch (e) {
       log.e(e);
