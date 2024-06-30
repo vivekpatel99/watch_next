@@ -45,11 +45,13 @@ class ApiService {
     try {
       final result = await sendRequest(url: tvSeriesUrl);
 
-      final List<TvSeriesSearchResult> searchTvSeries =
-          (result['results'] as List<dynamic>)
-              .map((item) => TvSeriesSearchResult.fromJson(item))
-              .toList();
+      // final searchTvSeriesResponse = TvSeriesSearchResponse.fromJson(result);
 
+      // final List<TvSeriesSearchResult> searchTvSeries =
+      //     searchTvSeriesResponse.results;
+      // (result['results'] as List<dynamic>)
+      //     .map((item) => TvSeriesSearchResult.fromJson(item))
+      //     .toList();
       return searchTvSeries;
     } catch (e) {
       log.e(e);

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+/// Do not need convert whole  reponse into dataclass, we need only result 
 // class TvSeriesSearchResponse {
 //   final int page;
 //   final List<TvSeriesSearchResult> results;
@@ -34,25 +35,25 @@ import 'dart:convert';
 //     };
 //   }
 
-//   factory TvSeriesSearchResponse.fromMap(Map<String, dynamic> map) {
-//     return TvSeriesSearchResponse(
-//       page: map['page'] as int,
-//       results: List<TvSeriesSearchResult>.from(
-//         (map['results'] as List<int>).map<TvSeriesSearchResult>(
-//           (x) => TvSeriesSearchResult.fromMap(x as Map<String, dynamic>),
-//         ),
-//       ),
-//       totalPages: map['totalPages'] as int,
-//       totalResults: map['totalResults'] as int,
-//     );
-//   }
+  factory TvSeriesSearchResponse.fromMap(Map<String, dynamic> map) {
+    return TvSeriesSearchResponse(
+      page: map['page'] as int,
+      results: List<TvSeriesSearchResult>.from(
+        (map['results'] as List<int>).map<TvSeriesSearchResult>(
+          (x) => TvSeriesSearchResult.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+      totalPages: map['totalPages'] as int,
+      totalResults: map['totalResults'] as int,
+    );
+  }
 
-//   String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-//   // factory TvSeriesSearchResponse.fromJson(String source) =>
-//   //     TvSeriesSearchResponse.fromMap(
-//   //         json.decode(source) as Map<String, dynamic>);
-// }
+  // factory TvSeriesSearchResponse.fromJson(String source) =>
+  //     TvSeriesSearchResponse.fromMap(
+  //         json.decode(source) as Map<String, dynamic>);
+}
 
 class TvSeriesSearchResult {
   final bool adult;
