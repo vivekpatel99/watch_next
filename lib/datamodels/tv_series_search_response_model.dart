@@ -1,56 +1,58 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class TvSeriesSearchResponse {
-  final int page;
-  final List<TvSeriesSearchResult> results;
-  final int totalPages;
-  final int totalResults;
+// class TvSeriesSearchResponse {
+//   final int page;
+//   final List<TvSeriesSearchResult> results;
+//   final int totalPages;
+//   final int totalResults;
 
-  TvSeriesSearchResponse({
-    required this.page,
-    required this.results,
-    required this.totalPages,
-    required this.totalResults,
-  });
+//   TvSeriesSearchResponse({
+//     required this.page,
+//     required this.results,
+//     required this.totalPages,
+//     required this.totalResults,
+//   });
 
-  factory TvSeriesSearchResponse.fromJson(Map<String, dynamic> json) =>
-      TvSeriesSearchResponse(
-        page: json['page'] as int,
-        results: (json['results'] as List<dynamic>)
-            .map((dynamic item) =>
-                TvSeriesSearchResult.fromJson(item as Map<String, dynamic>))
-            .toList(),
-        totalPages: json['total_pages'] as int,
-        totalResults: json['total_results'] as int,
-      );
+//   factory TvSeriesSearchResponse.fromJson(Map<String, dynamic> json) =>
+//       TvSeriesSearchResponse(
+//         page: json['page'] as int,
+//         results: (json['results'] as List<dynamic>)
+//             .map((dynamic item) =>
+//                 TvSeriesSearchResult.fromJson(item as Map<String, dynamic>))
+//             .toList(),
+//         totalPages: json['total_pages'] as int,
+//         totalResults: json['total_results'] as int,
+//       );
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'page': page,
-      'results': results.map((x) => x.toMap()).toList(),
-      'totalPages': totalPages,
-      'totalResults': totalResults,
-    };
-  }
+//   Map<String, dynamic> toMap() {
+//     return <String, dynamic>{
+//       'page': page,
+//       'results': results.map((x) => x.toMap()).toList(),
+//       'totalPages': totalPages,
+//       'totalResults': totalResults,
+//     };
+//   }
 
-  factory TvSeriesSearchResponse.fromMap(Map<String, dynamic> map) {
-    return TvSeriesSearchResponse(
-      page: map['page'] as int,
-      results: List<TvSeriesSearchResult>.from(
-        (map['results'] as List<int>).map<TvSeriesSearchResult>(
-          (x) => TvSeriesSearchResult.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      totalPages: map['totalPages'] as int,
-      totalResults: map['totalResults'] as int,
-    );
-  }
+//   factory TvSeriesSearchResponse.fromMap(Map<String, dynamic> map) {
+//     return TvSeriesSearchResponse(
+//       page: map['page'] as int,
+//       results: List<TvSeriesSearchResult>.from(
+//         (map['results'] as List<int>).map<TvSeriesSearchResult>(
+//           (x) => TvSeriesSearchResult.fromMap(x as Map<String, dynamic>),
+//         ),
+//       ),
+//       totalPages: map['totalPages'] as int,
+//       totalResults: map['totalResults'] as int,
+//     );
+//   }
 
-  String toJson() => json.encode(toMap());
+//   String toJson() => json.encode(toMap());
 
-  // factory TvSeriesSearchResponse.fromJson(String source) => TvSeriesSearchResponse.fromMap(json.decode(source) as Map<String, dynamic>);
-}
+//   // factory TvSeriesSearchResponse.fromJson(String source) =>
+//   //     TvSeriesSearchResponse.fromMap(
+//   //         json.decode(source) as Map<String, dynamic>);
+// }
 
 class TvSeriesSearchResult {
   final bool adult;
@@ -61,11 +63,11 @@ class TvSeriesSearchResult {
   final String originalLanguage;
   final String originalName;
   final String overview;
-  final String posterPath;
+  final String? posterPath;
   final String firstAirDate;
   final String name;
-  final double voteAverage;
-  final int voteCount;
+  final double? voteAverage;
+  final int? voteCount;
 
   TvSeriesSearchResult({
     required this.adult,
@@ -93,11 +95,11 @@ class TvSeriesSearchResult {
         originalLanguage: json['original_language'] as String,
         originalName: json['original_name'] as String,
         overview: json['overview'] as String,
-        posterPath: json['poster_path'] as String,
+        posterPath: json['poster_path'] as String?,
         firstAirDate: json['first_air_date'] as String,
         name: json['name'] as String,
-        voteAverage: json['vote_average'] as double,
-        voteCount: json['vote_count'] as int,
+        voteAverage: json['vote_average'] as double?,
+        voteCount: json['vote_count'] as int?,
       );
 
   Map<String, dynamic> toMap() {
