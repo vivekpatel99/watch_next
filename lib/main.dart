@@ -26,6 +26,7 @@ class MainApp extends StatelessWidget {
     final log = getLogger('MainApp');
     log.i('MainApp started');
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.homeView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,

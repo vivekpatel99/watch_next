@@ -39,8 +39,11 @@ class ApiService {
     }
   }
 
-  Future<List<TvSeriesSearchResult>>? searchTvSeries(
-      {required String seriesName}) async {
+  Future<List<TvSeriesSearchResult>?> searchTvSeries(
+      {required String? seriesName}) async {
+    if (seriesName == null) {
+      return null;
+    }
     final tvSeriesUrl =
         '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
     try {
@@ -49,7 +52,7 @@ class ApiService {
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
               .toList();
-      log.d(searchTvSeries);
+      log.d(searchTvSeries[0].name);
       return searchTvSeries;
     } catch (e) {
       log.e(e);
