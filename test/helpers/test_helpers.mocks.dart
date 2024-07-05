@@ -715,7 +715,7 @@ class MockApiService extends _i1.Mock implements _i8.ApiService {
       ) as _i6.Future<dynamic>);
 
   @override
-  _i6.Future<List<_i9.TvSeriesSearchResult>>? searchTvSeries(
+  _i6.Future<List<_i9.TvSeriesSearchResult>> searchTvSeries(
           {required String? seriesName}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -723,6 +723,10 @@ class MockApiService extends _i1.Mock implements _i8.ApiService {
           [],
           {#seriesName: seriesName},
         ),
-        returnValueForMissingStub: null,
-      ) as _i6.Future<List<_i9.TvSeriesSearchResult>>?);
+        returnValue: _i6.Future<List<_i9.TvSeriesSearchResult>>.value(
+            <_i9.TvSeriesSearchResult>[]),
+        returnValueForMissingStub:
+            _i6.Future<List<_i9.TvSeriesSearchResult>>.value(
+                <_i9.TvSeriesSearchResult>[]),
+      ) as _i6.Future<List<_i9.TvSeriesSearchResult>>);
 }

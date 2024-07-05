@@ -6,6 +6,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/services/api_service.dart';
 import 'package:watch_next/ui/views/search/search_view.dart';
+
 // @stacked-import
 
 @StackedApp(
@@ -13,6 +14,7 @@ import 'package:watch_next/ui/views/search/search_view.dart';
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: SearchView),
+
 // @stacked-route
   ],
   dependencies: [

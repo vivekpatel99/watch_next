@@ -39,13 +39,17 @@ class ApiService {
     }
   }
 
-  Future<List<TvSeriesSearchResult>?> searchTvSeries(
+  Future<List<TvSeriesSearchResult>> searchTvSeries(
       {required String? seriesName}) async {
+    String tvSeriesUrl;
+
     if (seriesName == null) {
-      return null;
+      tvSeriesUrl = ApiConstants.trandingTodayUrl;
+    } else {
+      tvSeriesUrl =
+          '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
     }
-    final tvSeriesUrl =
-        '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
+
     try {
       final result = await sendRequest(url: tvSeriesUrl);
       final List<TvSeriesSearchResult> searchTvSeries =

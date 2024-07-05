@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:stacked/stacked.dart';
+import 'package:stacked/stacked_annotations.dart';
 import 'package:watch_next/themes/styles.dart';
+import 'package:watch_next/ui/views/search/search_view.form.dart';
+import 'package:watch_next/ui/widgets/common/tabview/tab_discover_view.dart';
+import 'package:watch_next/ui/widgets/common/tabview/tab_watchlist_view.dart';
 
 import 'search_viewmodel.dart';
 
+@FormView(fields: [
+  FormTextField(name: 'searchQuery'),
+])
 class SearchView extends StatefulWidget {
   const SearchView({Key? key}) : super(key: key);
 
@@ -12,99 +19,92 @@ class SearchView extends StatefulWidget {
   State<SearchView> createState() => _SearchViewState();
 }
 
-class _SearchViewState extends State<SearchView> with TickerProviderStateMixin {
+class _SearchViewState extends State<SearchView> with $SearchView {
   @override
   Widget build(BuildContext context) {
-    TabController _tabController = TabController(length: 2, vsync: this);
-    TextEditingController? _searchInputController;
+    const List<Tab> myTabs = [
+      Tab(child: Text('Watch List', style: subheadingStyle)),
+      Tab(child: Text('Discover', style: subheadingStyle)),
+    ];
+    // TextEditingController? searchQueryController;
     String _searchQuery = "";
     String _hintText = 'Watchlist'; // Default hint text
     List<String> watchlistResults = ['vivek', 'patel', 'radha'];
     List<String> discoverResults = [];
 
-    void _handleTabSelection() {
-      setState(() {
-        _hintText = _tabController.index == 0 ? 'Watchlist' : 'Discover';
-      });
-    }
+    // void _handleTabSelection() {
+    //   setState(() {
+    //     _hintText = _tabController.index == 0 ? 'Watchlist' : 'Discover';
+    //   });
+    // }
 
-    @override
-    void initState() {
-      super.initState();
+    // @override
+    // void initState() {
+    //   super.initState();
 
-      _tabController.addListener(_handleTabSelection);
-    }
+    //   _tabController.addListener(_handleTabSelection);
+    // }
 
-    @override
-    void dispose() {
-      _tabController.dispose();
-      super.dispose();
-    }
+    // @override
+    // void dispose() {
+    //   _tabController.dispose();
+    //   super.dispose();
+    // }
 
-    void _onSearchChanged(String query) {
-      setState(() {
-        _searchQuery = query;
-      });
+    // void onSearchChanged(String query) {
+    //   setState(() {
+    //     _searchQuery = query;
+    //   });
 
-      if (_tabController.index == 0) {
-        // Mock fetch watchlist suggestions
-        setState(() {
-          watchlistResults = List.generate(
-              10, (index) => "Watchlist Result $index for $query");
-        });
-        print("Watchlist suggestions for: $query");
-        // Implement your logic to fetch watchlist suggestions
-      } else {
-        // Mock fetch API data
-        setState(() {
-          discoverResults =
-              List.generate(10, (index) => "API Result $index for $query");
-        });
-        print("API request for: $query");
-        // Implement your logic to fetch API data
-      }
-    }
+    //   if (_tabController.index == 0) {
+    //     // Mock fetch watchlist suggestions
+    //     setState(() {
+    //       watchlistResults = List.generate(
+    //           10, (index) => "Watchlist Result $index for $query");
+    //     });
+    //     // print("Watchlist suggestions for: $query");
+    //     // Implement your logic to fetch watchlist suggestions
+    //   } else {
+    //     // Mock fetch API data
+    //     setState(() {
+    //       discoverResults =
+    //           List.generate(10, (index) => "API Result $index for $query");
+    //     });
+    //     // print("API request for: $query");
+    //     // Implement your logic to fetch API data
+    //   }
+    // }
 
     return ViewModelBuilder<SearchViewModel>.reactive(
-      builder: (context, viewModel, child) => Scaffold(
-        appBar: AppBar(
-          flexibleSpace: Padding(
-            padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
-            child: TextField(
-              decoration: const InputDecoration(
-                  //TODO find a way to rebuid from to show hint text according to selected tab
-                  hintText: 'Search'),
-              autofocus: true,
-              controller: _searchInputController,
-              onChanged: _onSearchChanged,
-              onSubmitted: viewModel.getSerisName,
+      builder: (context, viewModel, child) => DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          appBar: AppBar(
+            flexibleSpace: Padding(
+              padding: const EdgeInsets.only(left: 50, right: 50, top: 30),
+              child: TextField(
+                decoration: const InputDecoration(
+                    //TODO find a way to rebuid from to show hint text according to selected tab
+                    hintText: 'Search'),
+                autofocus: true,
+                controller: searchQueryController,
+                // onChanged: () {},
+                // onSubmitted: viewModel.getSerisName,
+              ),
+            ),
+            bottom: const TabBar(tabs: myTabs),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: TabBarView(
+              children: [
+                const TabWatchListview(),
+                TabDiscoverView(
+                  searchQuery: searchQueryController.text,
+                )
+              ],
             ),
           ),
-          bottom: TabBar(controller: _tabController, tabs: const [
-            Tab(child: Text('Watch List', style: subheadingStyle)),
-            Tab(child: Text('Discover', style: subheadingStyle)),
-          ]),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: TabBarView(controller: _tabController, children: [
-            ListView.builder(
-              itemCount: watchlistResults.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(watchlistResults[index]),
-                );
-              },
-            ),
-            ListView.builder(
-              itemCount: watchlistResults.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(viewModel.data[index].name),
-                );
-              },
-            ),
-          ]),
         ),
       ),
       viewModelBuilder: () => SearchViewModel(),
