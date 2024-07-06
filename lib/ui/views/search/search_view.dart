@@ -27,10 +27,10 @@ class _SearchViewState extends State<SearchView> with $SearchView {
       Tab(child: Text('Discover', style: subheadingStyle)),
     ];
     // TextEditingController? searchQueryController;
-    String _searchQuery = "";
-    String _hintText = 'Watchlist'; // Default hint text
-    List<String> watchlistResults = ['vivek', 'patel', 'radha'];
-    List<String> discoverResults = [];
+    // String searchQuery = "";
+    // String hintText = 'Watchlist'; // Default hint text
+    // List<String> watchlistResults = ['vivek', 'patel', 'radha'];
+    // List<String> discoverResults = [];
 
     // void _handleTabSelection() {
     //   setState(() {

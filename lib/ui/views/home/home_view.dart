@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
-import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/common/mylogger.dart';
 import 'package:watch_next/themes/styles.dart';
-import 'package:watch_next/ui/common/app_colors.dart';
-import 'package:watch_next/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 

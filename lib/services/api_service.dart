@@ -39,19 +39,20 @@ class ApiService {
     }
   }
 
-  Future<List<TvSeriesSearchResult>> searchTvSeries(
-      {required String? seriesName}) async {
-    String tvSeriesUrl;
+  // String tvSeriesUrl;
 
-    if (seriesName == null) {
-      tvSeriesUrl = ApiConstants.trandingTodayUrl;
-    } else {
-      tvSeriesUrl =
-          '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
-    }
+  // if (seriesName == null) {
+  //   tvSeriesUrl = ApiConstants.trandingTodayUrl;
+  // } else {
+  //   tvSeriesUrl =
+  //       '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
+  // }
 
+  Future<List<TvSeriesSearchResult>> fetchTvSeries(
+      {required String url}) async {
+    log.i('fetchTvSeries');
     try {
-      final result = await sendRequest(url: tvSeriesUrl);
+      final result = await sendRequest(url: url);
       final List<TvSeriesSearchResult> searchTvSeries =
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
@@ -62,5 +63,24 @@ class ApiService {
       log.e(e);
       throw Exception(e);
     }
+  }
+
+  Future<List<TvSeriesSearchResult>> searchTvSeries(
+      {required String seriesName}) async {
+    log.i('searchTvSeries');
+    String tvSeriesUrl =
+        '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
+
+    return await fetchTvSeries(url: tvSeriesUrl);
+  }
+
+  Future<List<TvSeriesSearchResult>> fetchTrandingTodayTvSeries() async {
+    log.i('fetchTrandingTodayTvSeries');
+    String tradingTodayUrl = ApiConstants.trandingTodayUrl;
+    print(tradingTodayUrl);
+    List<TvSeriesSearchResult> trandingToday =
+        await fetchTvSeries(url: tradingTodayUrl);
+    print(trandingToday);
+    return trandingToday;
   }
 }

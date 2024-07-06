@@ -4,8 +4,8 @@ import 'package:watch_next/common/mylogger.dart';
 import 'package:watch_next/services/api_service.dart';
 
 class TabviewWatchListModel extends FutureViewModel {
-  final _apiService = locator<ApiService>();
-  final log = getLogger('TabviewModel');
+  // final _apiService = locator<ApiService>();
+  final log = getLogger('TabviewWatchListModel');
   // late String? _searchSeries;
 
   // String getSerisName(String name) {
@@ -14,8 +14,10 @@ class TabviewWatchListModel extends FutureViewModel {
   //   return name;
   // }
 
+  // TODO add Hive Database Watchlist
   @override
   Future futureToRun() {
-    return _apiService.searchTvSeries(seriesName: 'the boys');
+    return Future.delayed(const Duration(
+        seconds: 2)); //_apiService.searchTvSeries(seriesName: 'the boys');
   }
 }
