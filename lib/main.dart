@@ -4,9 +4,9 @@ import 'package:logger/logger.dart';
 import 'package:watch_next/app/app.bottomsheets.dart';
 import 'package:watch_next/app/app.dialogs.dart';
 import 'package:watch_next/app/app.locator.dart';
+import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:watch_next/common/mylogger.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +14,7 @@ Future<void> main() async {
   await setupLocator();
   setupDialogUi();
   setupBottomSheetUi();
-  Logger.level = Level.all;
+  Logger.level = Level.info;
   runApp(const MainApp());
 }
 

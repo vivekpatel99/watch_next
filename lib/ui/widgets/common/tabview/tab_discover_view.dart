@@ -7,13 +7,12 @@ import 'package:watch_next/contants/api_constants.dart';
 
 import 'package:watch_next/themes/styles.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
+
 import 'package:watch_next/ui/widgets/common/tabview/tabview_discover_model.dart';
 
 class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
-  final String? searchQuery;
   const TabDiscoverView({
     super.key,
-    required this.searchQuery,
   });
 
   @override

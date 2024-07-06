@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:watch_next/common/mylogger.dart';
+import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
@@ -39,15 +39,6 @@ class ApiService {
     }
   }
 
-  // String tvSeriesUrl;
-
-  // if (seriesName == null) {
-  //   tvSeriesUrl = ApiConstants.trandingTodayUrl;
-  // } else {
-  //   tvSeriesUrl =
-  //       '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
-  // }
-
   Future<List<TvSeriesSearchResult>> fetchTvSeries(
       {required String url}) async {
     log.i('fetchTvSeries');
@@ -77,10 +68,8 @@ class ApiService {
   Future<List<TvSeriesSearchResult>> fetchTrandingTodayTvSeries() async {
     log.i('fetchTrandingTodayTvSeries');
     String tradingTodayUrl = ApiConstants.trandingTodayUrl;
-    print(tradingTodayUrl);
     List<TvSeriesSearchResult> trandingToday =
         await fetchTvSeries(url: tradingTodayUrl);
-    print(trandingToday);
     return trandingToday;
   }
 }

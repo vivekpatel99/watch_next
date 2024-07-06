@@ -32,5 +32,6 @@ import 'package:watch_next/ui/views/search/search_view.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
+  logger: StackedLogger(),
 )
 class App {}
