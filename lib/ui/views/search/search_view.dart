@@ -44,10 +44,6 @@ class SearchView extends StackedView<SearchViewModel> {
   @override
   SearchViewModel viewModelBuilder(BuildContext context) => SearchViewModel();
 
-  @override
-  void onViewModelReady(SearchViewModel viewModel) {
-    super.onViewModelReady(viewModel);
-  }
 }
 
 // TextEditingController? searchQueryController;
