@@ -12,7 +12,16 @@ class TabWatchListview extends StackedView<TabviewWatchListModel> {
     TabviewWatchListModel viewModel,
     Widget? child,
   ) {
-    return const Center(child: CircularProgressIndicator());
+    return viewModel.hasError
+        ? Container(
+            color: Colors.red,
+            alignment: Alignment.center,
+            child: const Text(
+              'An error has occered while running the future',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        : const Center(child: CircularProgressIndicator());
     // return ListView.builder(
     //   itemCount: watchlistResults.length,
     //   itemBuilder: (context, index) {

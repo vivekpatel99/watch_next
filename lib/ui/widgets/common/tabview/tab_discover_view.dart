@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/contants/api_constants.dart';
+import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 
 import 'package:watch_next/themes/styles.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
@@ -28,52 +29,72 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
       maxNrOfCacheObjects: 200,
       repo: JsonCacheInfoRepository(databaseName: key),
     ));
-    return viewModel.isBusy
-        ? const Center(child: CircularProgressIndicator())
-        : ListView.separated(
-            shrinkWrap: true,
-            itemCount: viewModel.data.length,
-            itemBuilder: (context, index) {
-              final item = viewModel.data[index];
-              final posterUrl = (item.posterPath != null)
-                  ? ApiConstants.apiImageEndpoint + item.posterPath!
-                  : null;
+    final data = viewModel.futureToRun();
+    return viewModel.hasError
+        ? Container(
+            color: Colors.red,
+            alignment: Alignment.center,
+            child: const Text(
+              'An error has occered while running the future',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        : viewModel.isBusy
+            ? const Center(child: CircularProgressIndicator())
+            : FutureBuilder(
+                future: data,
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<TvSeriesSearchResult>> snapshot) {
+                  return (snapshot.data == null)
+                      ? const Center(child: CircularProgressIndicator())
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (context, index) {
+                            final item = snapshot.data?[index];
+                            final posterUrl = (item?.posterPath != null)
+                                ? ApiConstants.apiImageEndpoint +
+                                    item!.posterPath!
+                                : null;
 
-              return ListTile(
-                isThreeLine: true,
-                enableFeedback: true,
-                leading: (posterUrl == null)
-                    ? const Icon(Icons.error)
-                    : CachedNetworkImage(
-                        useOldImageOnUrlChange: true,
-                        cacheManager: customCacheManager,
-                        key: UniqueKey(),
-                        imageUrl: posterUrl,
-                        fit: BoxFit.contain,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
-                        fadeInDuration: const Duration(seconds: 3),
-                      ),
-                title: Text(
-                  item.name,
-                  style: subheadingStyle,
-                ),
-                subtitle: Text(
-                  item.overview,
-                  style: captionStyle,
-                  maxLines: 3,
-                  softWrap: true,
-                ),
-                onTap: () {},
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
+                            return ListTile(
+                              isThreeLine: true,
+                              enableFeedback: true,
+                              leading: (posterUrl == null)
+                                  ? const Icon(Icons.error)
+                                  : CachedNetworkImage(
+                                      useOldImageOnUrlChange: true,
+                                      cacheManager: customCacheManager,
+                                      key: UniqueKey(),
+                                      imageUrl: posterUrl,
+                                      fit: BoxFit.contain,
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      fadeInDuration:
+                                          const Duration(seconds: 3),
+                                    ),
+                              title: Text(
+                                item!.name,
+                                style: subheadingStyle,
+                              ),
+                              subtitle: Text(
+                                item.overview,
+                                style: captionStyle,
+                                maxLines: 3,
+                                softWrap: true,
+                              ),
+                              onTap: () {},
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              horizontalSpaceSmall,
+                        );
+                },
               );
-            },
-            separatorBuilder: (BuildContext context, int index) =>
-                horizontalSpaceSmall,
-          );
   }
 
   @override

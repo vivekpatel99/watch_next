@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/services/api_service.dart';
 import 'package:watch_next/ui/views/search/search_view.dart';
 
+import 'package:watch_next/services/searchquery_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -22,6 +23,7 @@ import 'package:watch_next/ui/views/search/search_view.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: SearchqueryService),
 // @stacked-service
   ],
   bottomsheets: [

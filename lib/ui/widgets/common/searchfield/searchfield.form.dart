@@ -11,47 +11,48 @@ import 'package:stacked/stacked.dart';
 
 const bool _autoTextFieldValidation = true;
 
-const String SearchQueryValueKey = 'searchQuery';
+const String SearchFieldValueKey = 'searchField';
 
-final Map<String, TextEditingController> _SearchViewTextEditingControllers = {};
+final Map<String, TextEditingController> _SearchfieldTextEditingControllers =
+    {};
 
-final Map<String, FocusNode> _SearchViewFocusNodes = {};
+final Map<String, FocusNode> _SearchfieldFocusNodes = {};
 
-final Map<String, String? Function(String?)?> _SearchViewTextValidations = {
-  SearchQueryValueKey: null,
+final Map<String, String? Function(String?)?> _SearchfieldTextValidations = {
+  SearchFieldValueKey: null,
 };
 
-mixin $SearchView {
-  TextEditingController get searchQueryController =>
-      _getFormTextEditingController(SearchQueryValueKey);
+mixin $Searchfield {
+  TextEditingController get searchFieldController =>
+      _getFormTextEditingController(SearchFieldValueKey);
 
-  FocusNode get searchQueryFocusNode => _getFormFocusNode(SearchQueryValueKey);
+  FocusNode get searchFieldFocusNode => _getFormFocusNode(SearchFieldValueKey);
 
   TextEditingController _getFormTextEditingController(
     String key, {
     String? initialValue,
   }) {
-    if (_SearchViewTextEditingControllers.containsKey(key)) {
-      return _SearchViewTextEditingControllers[key]!;
+    if (_SearchfieldTextEditingControllers.containsKey(key)) {
+      return _SearchfieldTextEditingControllers[key]!;
     }
 
-    _SearchViewTextEditingControllers[key] =
+    _SearchfieldTextEditingControllers[key] =
         TextEditingController(text: initialValue);
-    return _SearchViewTextEditingControllers[key]!;
+    return _SearchfieldTextEditingControllers[key]!;
   }
 
   FocusNode _getFormFocusNode(String key) {
-    if (_SearchViewFocusNodes.containsKey(key)) {
-      return _SearchViewFocusNodes[key]!;
+    if (_SearchfieldFocusNodes.containsKey(key)) {
+      return _SearchfieldFocusNodes[key]!;
     }
-    _SearchViewFocusNodes[key] = FocusNode();
-    return _SearchViewFocusNodes[key]!;
+    _SearchfieldFocusNodes[key] = FocusNode();
+    return _SearchfieldFocusNodes[key]!;
   }
 
   /// Registers a listener on every generated controller that calls [model.setData()]
   /// with the latest textController values
   void syncFormWithViewModel(FormStateHelper model) {
-    searchQueryController.addListener(() => _updateFormData(model));
+    searchFieldController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -63,7 +64,7 @@ mixin $SearchView {
     'This feature was deprecated after 3.1.0.',
   )
   void listenToFormUpdated(FormViewModel model) {
-    searchQueryController.addListener(() => _updateFormData(model));
+    searchFieldController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -73,7 +74,7 @@ mixin $SearchView {
     model.setData(
       model.formValueMap
         ..addAll({
-          SearchQueryValueKey: searchQueryController.text,
+          SearchFieldValueKey: searchFieldController.text,
         }),
     );
 
@@ -91,15 +92,15 @@ mixin $SearchView {
   void disposeForm() {
     // The dispose function for a TextEditingController sets all listeners to null
 
-    for (var controller in _SearchViewTextEditingControllers.values) {
+    for (var controller in _SearchfieldTextEditingControllers.values) {
       controller.dispose();
     }
-    for (var focusNode in _SearchViewFocusNodes.values) {
+    for (var focusNode in _SearchfieldFocusNodes.values) {
       focusNode.dispose();
     }
 
-    _SearchViewTextEditingControllers.clear();
-    _SearchViewFocusNodes.clear();
+    _SearchfieldTextEditingControllers.clear();
+    _SearchfieldFocusNodes.clear();
   }
 }
 
@@ -115,55 +116,55 @@ extension ValueProperties on FormStateHelper {
     return !hasAnyValidationMessage;
   }
 
-  String? get searchQueryValue =>
-      this.formValueMap[SearchQueryValueKey] as String?;
+  String? get searchFieldValue =>
+      this.formValueMap[SearchFieldValueKey] as String?;
 
-  set searchQueryValue(String? value) {
+  set searchFieldValue(String? value) {
     this.setData(
-      this.formValueMap..addAll({SearchQueryValueKey: value}),
+      this.formValueMap..addAll({SearchFieldValueKey: value}),
     );
 
-    if (_SearchViewTextEditingControllers.containsKey(SearchQueryValueKey)) {
-      _SearchViewTextEditingControllers[SearchQueryValueKey]?.text =
+    if (_SearchfieldTextEditingControllers.containsKey(SearchFieldValueKey)) {
+      _SearchfieldTextEditingControllers[SearchFieldValueKey]?.text =
           value ?? '';
     }
   }
 
-  bool get hasSearchQuery =>
-      this.formValueMap.containsKey(SearchQueryValueKey) &&
-      (searchQueryValue?.isNotEmpty ?? false);
+  bool get hasSearchField =>
+      this.formValueMap.containsKey(SearchFieldValueKey) &&
+      (searchFieldValue?.isNotEmpty ?? false);
 
-  bool get hasSearchQueryValidationMessage =>
-      this.fieldsValidationMessages[SearchQueryValueKey]?.isNotEmpty ?? false;
+  bool get hasSearchFieldValidationMessage =>
+      this.fieldsValidationMessages[SearchFieldValueKey]?.isNotEmpty ?? false;
 
-  String? get searchQueryValidationMessage =>
-      this.fieldsValidationMessages[SearchQueryValueKey];
+  String? get searchFieldValidationMessage =>
+      this.fieldsValidationMessages[SearchFieldValueKey];
 }
 
 extension Methods on FormStateHelper {
-  setSearchQueryValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[SearchQueryValueKey] = validationMessage;
+  setSearchFieldValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[SearchFieldValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {
-    searchQueryValue = '';
+    searchFieldValue = '';
   }
 
   /// Validates text input fields on the Form
   void validateForm() {
     this.setValidationMessages({
-      SearchQueryValueKey: getValidationMessage(SearchQueryValueKey),
+      SearchFieldValueKey: getValidationMessage(SearchFieldValueKey),
     });
   }
 }
 
 /// Returns the validation message for the given key
 String? getValidationMessage(String key) {
-  final validatorForKey = _SearchViewTextValidations[key];
+  final validatorForKey = _SearchfieldTextValidations[key];
   if (validatorForKey == null) return null;
 
   String? validationMessageForKey = validatorForKey(
-    _SearchViewTextEditingControllers[key]!.text,
+    _SearchfieldTextEditingControllers[key]!.text,
   );
 
   return validationMessageForKey;
@@ -172,5 +173,5 @@ String? getValidationMessage(String key) {
 /// Updates the fieldsValidationMessages on the FormViewModel
 void updateValidationData(FormStateHelper model) =>
     model.setValidationMessages({
-      SearchQueryValueKey: getValidationMessage(SearchQueryValueKey),
+      SearchFieldValueKey: getValidationMessage(SearchFieldValueKey),
     });
