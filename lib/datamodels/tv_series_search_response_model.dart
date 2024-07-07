@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:ffi';
 
 /// Do not need convert whole  reponse into dataclass, we need only result
 // class TvSeriesSearchResponse {
@@ -69,8 +70,10 @@ class TvSeriesSearchResult {
   final String name;
   final double? voteAverage;
   final int? voteCount;
+  bool? isChecked;
 
   TvSeriesSearchResult({
+    this.isChecked = false,
     required this.adult,
     this.backdropPath,
     required this.genreIds,

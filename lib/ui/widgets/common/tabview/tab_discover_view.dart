@@ -3,12 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:stacked/stacked.dart';
+
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
-
 import 'package:watch_next/themes/styles.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
-
 import 'package:watch_next/ui/widgets/common/tabview/tabview_discover_model.dart';
 
 class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
@@ -56,7 +55,6 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
                                 ? ApiConstants.apiImageEndpoint +
                                     item!.posterPath!
                                 : null;
-
                             return ListTile(
                               isThreeLine: true,
                               enableFeedback: true,
@@ -88,6 +86,9 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
                               onTap: () {},
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15)),
+                              trailing: MyCheckBox(
+                                item: item,
+                              ),
                             );
                           },
                           separatorBuilder: (BuildContext context, int index) =>
@@ -102,4 +103,26 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
     BuildContext context,
   ) =>
       TabviewDiscoverModel();
+}
+
+class MyCheckBox extends StatelessWidget {
+  final TvSeriesSearchResult item;
+
+  const MyCheckBox({
+    Key? key,
+    required this.item,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<TabviewDiscoverModel>.reactive(
+      builder: (context, viewModel, child) => Checkbox(
+          tristate: true,
+          value: item.isChecked,
+          onChanged: (value) {
+            viewModel.toggleChecked(value, item);
+          }),
+      viewModelBuilder: () => TabviewDiscoverModel(),
+    );
+  }
 }

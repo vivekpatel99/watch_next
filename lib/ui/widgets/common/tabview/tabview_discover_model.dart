@@ -9,20 +9,44 @@ class TabviewDiscoverModel extends ReactiveViewModel {
   final _apiService = locator<ApiService>();
   final _searchService = locator<SearchqueryService>();
 
+  late List<TvSeriesSearchResult> _fetchedData;
+
   final log = getLogger('TabviewDiscoverModel');
 
   @override
   List<ListenableServiceMixin> get listenableServices => [_searchService];
 
-  Future<List<TvSeriesSearchResult>> futureToRun() {
-    log.i('futureToRun');
+  bool getIsChecked(int id) {
+    final index = _fetchedData.indexWhere((item) => item.id == id);
+    print('################$index');
+    if (index != -1) {
+      return _fetchedData[index].isChecked ?? false;
+    }
+    return false;
+  }
 
+  Future<List<TvSeriesSearchResult>> futureToRun() async {
+    log.i('futureToRun');
     if (_searchService.searchQuery != null) {
       log.i('searchvalue ${_searchService.searchQuery}');
-      return _apiService.searchTvSeries(
+      _fetchedData = await _apiService.searchTvSeries(
           seriesName: _searchService.searchQuery!);
+
+      log.i('searchTvSeries data lenght - ${_fetchedData.length}');
     } else {
-      return _apiService.fetchTrandingTodayTvSeries();
+      _fetchedData = await _apiService.fetchTrandingTodayTvSeries();
+      log.i('fetchTrandingTodayTvSeries data lenght - ${_fetchedData.length}');
     }
+
+    return _fetchedData;
+  }
+
+  void toggleChecked(bool? value, TvSeriesSearchResult item) {
+    if (value != null) {
+      item.isChecked = true;
+    } else {
+      item.isChecked = false;
+    }
+    rebuildUi();
   }
 }

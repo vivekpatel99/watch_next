@@ -61,15 +61,12 @@ class ApiService {
     log.i('searchTvSeries');
     String tvSeriesUrl =
         '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
-
     return await fetchTvSeries(url: tvSeriesUrl);
   }
 
   Future<List<TvSeriesSearchResult>> fetchTrandingTodayTvSeries() async {
     log.i('fetchTrandingTodayTvSeries');
     String tradingTodayUrl = ApiConstants.trandingTodayUrl;
-    List<TvSeriesSearchResult> trandingToday =
-        await fetchTvSeries(url: tradingTodayUrl);
-    return trandingToday;
+    return await fetchTvSeries(url: tradingTodayUrl);
   }
 }
