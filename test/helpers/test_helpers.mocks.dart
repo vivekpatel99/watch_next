@@ -14,6 +14,7 @@ import 'package:stacked_services/stacked_services.dart' as _i3;
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart'
     as _i9;
 import 'package:watch_next/services/api_service.dart' as _i8;
+import 'package:watch_next/services/hivedb_service.dart' as _i11;
 import 'package:watch_next/services/searchquery_service.dart' as _i10;
 
 // ignore_for_file: type=lint
@@ -781,20 +782,20 @@ class MockSearchqueryService extends _i1.Mock
       ) as _i2.Logger);
 
   @override
-  set searchQuerySet(dynamic value) => super.noSuchMethod(
-        Invocation.setter(
-          #searchQuerySet,
-          value,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   int get listenersCount => (super.noSuchMethod(
         Invocation.getter(#listenersCount),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
+
+  @override
+  void searchQuerySet(dynamic value) => super.noSuchMethod(
+        Invocation.method(
+          #searchQuerySet,
+          [value],
+        ),
+        returnValueForMissingStub: null,
+      );
 
   @override
   void listenToReactiveValues(List<dynamic>? reactiveValues) =>
@@ -829,6 +830,52 @@ class MockSearchqueryService extends _i1.Mock
         Invocation.method(
           #notifyListeners,
           [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [HivedbService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHivedbService extends _i1.Mock implements _i11.HivedbService {
+  @override
+  _i2.Logger get log => (super.noSuchMethod(
+        Invocation.getter(#log),
+        returnValue: _FakeLogger_0(
+          this,
+          Invocation.getter(#log),
+        ),
+        returnValueForMissingStub: _FakeLogger_0(
+          this,
+          Invocation.getter(#log),
+        ),
+      ) as _i2.Logger);
+
+  @override
+  _i6.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  void addModel(_i9.TvSeriesSearchResult? model) => super.noSuchMethod(
+        Invocation.method(
+          #addModel,
+          [model],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeModel(_i9.TvSeriesSearchResult? model) => super.noSuchMethod(
+        Invocation.method(
+          #removeModel,
+          [model],
         ),
         returnValueForMissingStub: null,
       );

@@ -19,8 +19,13 @@ class StartupView extends StackedView<StartupViewModel> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // Image.asset(
+            //   'assets/images/netflix_logo0.png',
+            //   width: 200,
+            //   height: 100,
+            // ),
             Text(
-              'STACKED',
+              'Watch Next',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
             Row(

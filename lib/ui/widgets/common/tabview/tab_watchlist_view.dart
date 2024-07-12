@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked/stacked.dart';
 
 import 'tabview_watchlist_model.dart';
@@ -12,24 +13,22 @@ class TabWatchListview extends StackedView<TabviewWatchListModel> {
     TabviewWatchListModel viewModel,
     Widget? child,
   ) {
-    return viewModel.hasError
-        ? Container(
-            color: Colors.red,
-            alignment: Alignment.center,
-            child: const Text(
-              'An error has occered while running the future',
-              style: TextStyle(color: Colors.white),
-            ),
+    return (viewModel.getWatchListBox == null)
+        ? const Center(
+            child: CircularProgressIndicator.adaptive(),
           )
-        : const Center(child: CircularProgressIndicator());
-    // return ListView.builder(
-    //   itemCount: watchlistResults.length,
-    //   itemBuilder: (context, index) {
-    //     return ListTile(
-    //       title: Text(viewModel.data[index].name),
-    //     );
-    //   },
-    // );
+        : ValueListenableBuilder(
+            valueListenable: viewModel.getWatchListBox!.listenable(),
+            builder: (context, box, _) {
+              return ListView.builder(
+                itemCount: viewModel.getWatchListBox!.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(viewModel.getWatchListBox!.getAt(index).name),
+                  );
+                },
+              );
+            });
   }
 
   @override

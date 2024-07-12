@@ -1,75 +1,52 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-/// Do not need convert whole  reponse into dataclass, we need only result
-// class TvSeriesSearchResponse {
-//   final int page;
-//   final List<TvSeriesSearchResult> results;
-//   final int totalPages;
-//   final int totalResults;
+import 'package:hive_flutter/hive_flutter.dart';
 
-//   TvSeriesSearchResponse({
-//     required this.page,
-//     required this.results,
-//     required this.totalPages,
-//     required this.totalResults,
-//   });
+part 'tv_series_search_response_model.g.dart';
 
-//   factory TvSeriesSearchResponse.fromJson(Map<String, dynamic> json) =>
-//       TvSeriesSearchResponse(
-//         page: json['page'] as int,
-//         results: (json['results'] as List<dynamic>)
-//             .map((dynamic item) =>
-//                 TvSeriesSearchResult.fromJson(item as Map<String, dynamic>))
-//             .toList(),
-//         totalPages: json['total_pages'] as int,
-//         totalResults: json['total_results'] as int,
-//       );
-
-//   Map<String, dynamic> toMap() {
-//     return <String, dynamic>{
-//       'page': page,
-//       'results': results.map((x) => x.toMap()).toList(),
-//       'totalPages': totalPages,
-//       'totalResults': totalResults,
-//     };
-//   }
-
-//   factory TvSeriesSearchResponse.fromMap(Map<String, dynamic> map) {
-//     return TvSeriesSearchResponse(
-//       page: map['page'] as int,
-//       results: List<TvSeriesSearchResult>.from(
-//         (map['results'] as List<int>).map<TvSeriesSearchResult>(
-//           (x) => TvSeriesSearchResult.fromMap(x as Map<String, dynamic>),
-//         ),
-//       ),
-//       totalPages: map['totalPages'] as int,
-//       totalResults: map['totalResults'] as int,
-//     );
-//   }
-
-//   String toJson() => json.encode(toMap());
-
-//   // factory TvSeriesSearchResponse.fromJson(String source) =>
-//   //     TvSeriesSearchResponse.fromMap(
-//   //         json.decode(source) as Map<String, dynamic>);
-// }
-
+@HiveType(typeId: 1)
 class TvSeriesSearchResult {
+  @HiveField(0)
   final bool adult;
+
+  @HiveField(1)
   final String? backdropPath;
+
+  @HiveField(2)
   final List<int> genreIds;
+
+  @HiveField(3)
   final int id;
+
+  @HiveField(4)
   final List<String> originCountry;
+
+  @HiveField(5)
   final String originalLanguage;
+
+  @HiveField(6)
   final String originalName;
+
+  @HiveField(7)
   final String overview;
+
+  @HiveField(8)
   final String? posterPath;
+
+  @HiveField(9)
   final String firstAirDate;
+
+  @HiveField(10)
   final String name;
+
+  @HiveField(11)
   final double? voteAverage;
+
+  @HiveField(12)
   final int? voteCount;
-  bool? isChecked;
+
+  @HiveField(13)
+  bool isChecked;
 
   TvSeriesSearchResult({
     this.isChecked = false,
@@ -141,11 +118,10 @@ class TvSeriesSearchResult {
       voteCount: map['voteCount'] as int,
     );
   }
+  @override
+  String toString() {
+    return '$name: $id'; // You can modify this to display other desired information
+  }
 
   String toJson() => json.encode(toMap());
-
-  // factory TvSeriesSearchResult.fromJson(String source) => TvSeriesSearchResult.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  // factory TvSeriesSearchResult.fromJson(String source) =>
-  //     TvSeriesSearchResult.fromMap(json.decode(source) as Map<String, dynamic>);
 }

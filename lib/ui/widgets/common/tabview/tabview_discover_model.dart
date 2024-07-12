@@ -3,11 +3,13 @@ import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:watch_next/services/api_service.dart';
+import 'package:watch_next/services/hivedb_service.dart';
 import 'package:watch_next/services/searchquery_service.dart';
 
 class TabviewDiscoverModel extends ReactiveViewModel {
   final _apiService = locator<ApiService>();
   final _searchService = locator<SearchqueryService>();
+  final _hiveService = locator<HivedbService>();
 
   late List<TvSeriesSearchResult> _fetchedData;
 
@@ -18,9 +20,9 @@ class TabviewDiscoverModel extends ReactiveViewModel {
 
   bool getIsChecked(int id) {
     final index = _fetchedData.indexWhere((item) => item.id == id);
-    print('################$index');
+
     if (index != -1) {
-      return _fetchedData[index].isChecked ?? false;
+      return _fetchedData[index].isChecked;
     }
     return false;
   }
@@ -44,8 +46,11 @@ class TabviewDiscoverModel extends ReactiveViewModel {
   void toggleChecked(bool? value, TvSeriesSearchResult item) {
     if (value != null) {
       item.isChecked = true;
+      _hiveService.addModel(item);
+      // TODO Add snackber to display message
     } else {
       item.isChecked = false;
+      // TODO Add snackber to display message
     }
     rebuildUi();
   }

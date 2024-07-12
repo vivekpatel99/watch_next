@@ -4,6 +4,7 @@ import 'package:watch_next/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/services/api_service.dart';
 import 'package:watch_next/services/searchquery_service.dart';
+import 'package:watch_next/services/hivedb_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<SearchqueryService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<HivedbService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterApiService();
   getAndRegisterSearchqueryService();
+  getAndRegisterHivedbService();
 // @stacked-mock-register
 }
 
@@ -86,6 +89,13 @@ MockSearchqueryService getAndRegisterSearchqueryService() {
   _removeRegistrationIfExists<SearchqueryService>();
   final service = MockSearchqueryService();
   locator.registerSingleton<SearchqueryService>(service);
+  return service;
+}
+
+MockHivedbService getAndRegisterHivedbService() {
+  _removeRegistrationIfExists<HivedbService>();
+  final service = MockHivedbService();
+  locator.registerSingleton<HivedbService>(service);
   return service;
 }
 // @stacked-mock-create
