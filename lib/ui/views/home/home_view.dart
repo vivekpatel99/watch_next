@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/themes/styles.dart';
-import 'package:watch_next/ui/widgets/common/tabview/tab_discover_view.dart';
 import 'package:watch_next/ui/widgets/common/tabview/tab_watchlist_view.dart';
 
 import 'home_viewmodel.dart';
