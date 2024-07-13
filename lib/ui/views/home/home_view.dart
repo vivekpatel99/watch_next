@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:watch_next/common/mylogger.dart';
-import 'package:watch_next/ui/common/app_colors.dart';
-import 'package:watch_next/ui/common/ui_helpers.dart';
+import 'package:watch_next/app/app.logger.dart';
+import 'package:watch_next/themes/styles.dart';
+import 'package:watch_next/ui/widgets/common/tabview/tab_watchlist_view.dart';
 
 import 'home_viewmodel.dart';
 
@@ -17,66 +17,45 @@ class HomeView extends StackedView<HomeViewModel> {
   ) {
     final log = getLogger('HomeView');
     log.i('HomeView started');
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: viewModel.incrementCounter,
-                      child: Text(
-                        viewModel.counterLabel,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showDialog,
-                      child: const Text(
-                        'Show Dialog',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: kcDarkGreyColor,
-                      onPressed: viewModel.showBottomSheet,
-                      child: const Text(
-                        'Show Bottom Sheet',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
+    return DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: Scaffold(
+        appBar: myAppBar(viewModel: viewModel),
+        body: const SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25.0),
+            child: TabBarView(children: [
+              TabWatchListview(),
+              Text('Upcoming'),
+              Text('Recent'),
+            ]),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: viewModel.searchButtonClicked,
+          child: const Icon(Icons.add),
+        ),
       ),
+    );
+  }
+
+  AppBar myAppBar({required HomeViewModel viewModel}) {
+    const List<Tab> myTabs = [
+      Tab(child: Text('Watch List', style: subheadingStyle)),
+      Tab(child: Text('Upcomming', style: subheadingStyle)),
+      Tab(child: Text('Recent', style: subheadingStyle)),
+    ];
+    return AppBar(
+      title: const Text('Shows', style: heading1Style),
+      actions: [
+        IconButton(
+            onPressed: viewModel.searchButtonClicked,
+            icon: const Icon(Icons.search, size: 40.0)),
+        IconButton(
+            onPressed: () {}, icon: const Icon(Icons.more_vert, size: 40.0))
+      ],
+      bottom: const TabBar(tabs: myTabs),
     );
   }
 

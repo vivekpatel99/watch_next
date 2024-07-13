@@ -3,6 +3,9 @@ import 'package:mockito/mockito.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/services/api_service.dart';
+import 'package:watch_next/services/searchquery_service.dart';
+import 'package:watch_next/services/hivedb_service.dart';
+import 'package:watch_next/services/my_snackbar_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +15,9 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<SearchqueryService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<HivedbService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<MySnackbarService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +25,9 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterApiService();
+  getAndRegisterSearchqueryService();
+  getAndRegisterHivedbService();
+  getAndRegisterMySnackbarService();
 // @stacked-mock-register
 }
 
@@ -76,6 +85,27 @@ MockApiService getAndRegisterApiService() {
   _removeRegistrationIfExists<ApiService>();
   final service = MockApiService();
   locator.registerSingleton<ApiService>(service);
+  return service;
+}
+
+MockSearchqueryService getAndRegisterSearchqueryService() {
+  _removeRegistrationIfExists<SearchqueryService>();
+  final service = MockSearchqueryService();
+  locator.registerSingleton<SearchqueryService>(service);
+  return service;
+}
+
+MockHivedbService getAndRegisterHivedbService() {
+  _removeRegistrationIfExists<HivedbService>();
+  final service = MockHivedbService();
+  locator.registerSingleton<HivedbService>(service);
+  return service;
+}
+
+MockMySnackbarService getAndRegisterMySnackbarService() {
+  _removeRegistrationIfExists<MySnackbarService>();
+  final service = MockMySnackbarService();
+  locator.registerSingleton<MySnackbarService>(service);
   return service;
 }
 // @stacked-mock-create

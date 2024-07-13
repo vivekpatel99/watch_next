@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:watch_next/common/mylogger.dart';
+import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
@@ -39,21 +39,34 @@ class ApiService {
     }
   }
 
-  Future<List<TvSeriesSearchResult>>? searchTvSeries(
-      {required String seriesName}) async {
-    final tvSeriesUrl =
-        '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
+  Future<List<TvSeriesSearchResult>> fetchTvSeries(
+      {required String url}) async {
+    log.i('fetchTvSeries');
     try {
-      final result = await sendRequest(url: tvSeriesUrl);
+      final result = await sendRequest(url: url);
       final List<TvSeriesSearchResult> searchTvSeries =
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
               .toList();
-      log.d(searchTvSeries);
+      log.d(searchTvSeries[0].name);
       return searchTvSeries;
     } catch (e) {
       log.e(e);
       throw Exception(e);
     }
+  }
+
+  Future<List<TvSeriesSearchResult>> searchTvSeries(
+      {required String seriesName}) async {
+    log.i('searchTvSeries');
+    String tvSeriesUrl =
+        '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
+    return await fetchTvSeries(url: tvSeriesUrl);
+  }
+
+  Future<List<TvSeriesSearchResult>> fetchTrandingTodayTvSeries() async {
+    log.i('fetchTrandingTodayTvSeries');
+    String tradingTodayUrl = ApiConstants.trandingTodayUrl;
+    return await fetchTvSeries(url: tradingTodayUrl);
   }
 }

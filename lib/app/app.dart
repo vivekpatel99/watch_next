@@ -5,19 +5,29 @@ import 'package:watch_next/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/services/api_service.dart';
+import 'package:watch_next/ui/views/search/search_view.dart';
+
+import 'package:watch_next/services/searchquery_service.dart';
+import 'package:watch_next/services/hivedb_service.dart';
+import 'package:watch_next/services/my_snackbar_service.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
-    // @stacked-route
+    MaterialRoute(page: SearchView),
+
+// @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ApiService),
+    LazySingleton(classType: SearchqueryService),
+    LazySingleton(classType: HivedbService),
+    LazySingleton(classType: MySnackbarService),
 // @stacked-service
   ],
   bottomsheets: [
@@ -28,5 +38,6 @@ import 'package:watch_next/services/api_service.dart';
     StackedDialog(classType: InfoAlertDialog),
     // @stacked-dialog
   ],
+  logger: StackedLogger(),
 )
 class App {}
