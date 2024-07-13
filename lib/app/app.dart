@@ -9,6 +9,7 @@ import 'package:watch_next/ui/views/search/search_view.dart';
 
 import 'package:watch_next/services/searchquery_service.dart';
 import 'package:watch_next/services/hivedb_service.dart';
+import 'package:watch_next/services/my_snackbar_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,6 +27,7 @@ import 'package:watch_next/services/hivedb_service.dart';
     LazySingleton(classType: ApiService),
     LazySingleton(classType: SearchqueryService),
     LazySingleton(classType: HivedbService),
+    LazySingleton(classType: MySnackbarService),
 // @stacked-service
   ],
   bottomsheets: [

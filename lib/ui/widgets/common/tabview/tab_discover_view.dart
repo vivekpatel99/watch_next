@@ -5,9 +5,12 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:watch_next/contants/api_constants.dart';
+import 'package:watch_next/contants/constansts.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:watch_next/themes/styles.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
+import 'package:watch_next/ui/widgets/common/my_checkbox.dart';
+import 'package:watch_next/ui/widgets/common/my_list_tile.dart';
 import 'package:watch_next/ui/widgets/common/tabview/tabview_discover_model.dart';
 
 class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
@@ -21,13 +24,6 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
     TabviewDiscoverModel viewModel,
     Widget? child,
   ) {
-    const key = 'customCacheKey';
-    final customCacheManager = CacheManager(Config(
-      key,
-      stalePeriod: const Duration(days: 7),
-      maxNrOfCacheObjects: 200,
-      repo: JsonCacheInfoRepository(databaseName: key),
-    ));
     final data = viewModel.futureToRun();
     return viewModel.hasError
         ? Container(
@@ -46,53 +42,22 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
                     AsyncSnapshot<List<TvSeriesSearchResult>> snapshot) {
                   return (snapshot.data == null)
                       ? const Center(child: CircularProgressIndicator())
-                      : ListView.separated(
+                      : ListView.builder(
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (context, index) {
-                            final item = snapshot.data?[index];
-                            final posterUrl = (item?.posterPath != null)
+                            final item = snapshot.data![index];
+                            final posterUrl = (item.posterPath != null)
                                 ? ApiConstants.apiImageEndpoint +
-                                    item!.posterPath!
+                                    item.posterPath!
                                 : null;
-                            return ListTile(
-                              isThreeLine: true,
-                              enableFeedback: true,
-                              leading: (posterUrl == null)
-                                  ? const Icon(Icons.error)
-                                  : CachedNetworkImage(
-                                      useOldImageOnUrlChange: true,
-                                      cacheManager: customCacheManager,
-                                      key: UniqueKey(),
-                                      imageUrl: posterUrl,
-                                      fit: BoxFit.contain,
-                                      placeholder: (context, url) =>
-                                          const CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          const Icon(Icons.error),
-                                      fadeInDuration:
-                                          const Duration(seconds: 3),
-                                    ),
-                              title: Text(
-                                item!.name,
-                                style: subheadingStyle,
-                              ),
-                              subtitle: Text(
-                                item.overview,
-                                style: captionStyle,
-                                maxLines: 3,
-                                softWrap: true,
-                              ),
-                              onTap: () {},
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)),
-                              trailing: MyCheckBox(
+                            return MyListTile(
+                                posterUrl: posterUrl!,
                                 item: item,
-                              ),
-                            );
+                                myCheckbox: _MyCheckBox(item: item, key: key));
                           },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              horizontalSpaceSmall,
+                          // separatorBuilder: (BuildContext context, int index) =>
+                          //     horizontalSpaceSmall,
                         );
                 },
               );
@@ -105,23 +70,15 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
       TabviewDiscoverModel();
 }
 
-class MyCheckBox extends StatelessWidget {
+class _MyCheckBox extends StatelessWidget {
   final TvSeriesSearchResult item;
-
-  const MyCheckBox({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
+  const _MyCheckBox({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<TabviewDiscoverModel>.reactive(
-      builder: (context, viewModel, child) => Checkbox(
-          tristate: true,
-          value: item.isChecked,
-          onChanged: (value) {
-            viewModel.toggleChecked(value, item);
-          }),
+      builder: (context, viewModel, child) =>
+          MyCheckBoxWidget(viewModel: viewModel, item: item),
       viewModelBuilder: () => TabviewDiscoverModel(),
     );
   }

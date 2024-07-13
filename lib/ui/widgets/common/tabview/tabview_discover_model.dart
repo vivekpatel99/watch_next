@@ -1,4 +1,5 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
@@ -47,6 +48,7 @@ class TabviewDiscoverModel extends ReactiveViewModel {
     if (value != null) {
       item.isChecked = true;
       _hiveService.addModel(item);
+      log.i('Model added ${item.name}');
       // TODO Add snackber to display message
     } else {
       item.isChecked = false;

@@ -13,6 +13,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/api_service.dart';
 import '../services/hivedb_service.dart';
+import '../services/my_snackbar_service.dart';
 import '../services/searchquery_service.dart';
 
 final locator = StackedLocator.instance;
@@ -32,4 +33,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => SearchqueryService());
   locator.registerLazySingleton(() => HivedbService());
+  locator.registerLazySingleton(() => MySnackbarService());
 }

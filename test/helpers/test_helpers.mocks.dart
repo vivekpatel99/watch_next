@@ -15,6 +15,7 @@ import 'package:watch_next/datamodels/tv_series_search_response_model.dart'
     as _i9;
 import 'package:watch_next/services/api_service.dart' as _i8;
 import 'package:watch_next/services/hivedb_service.dart' as _i11;
+import 'package:watch_next/services/my_snackbar_service.dart' as _i12;
 import 'package:watch_next/services/searchquery_service.dart' as _i10;
 
 // ignore_for_file: type=lint
@@ -880,3 +881,9 @@ class MockHivedbService extends _i1.Mock implements _i11.HivedbService {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [MySnackbarService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMySnackbarService extends _i1.Mock
+    implements _i12.MySnackbarService {}
