@@ -9,6 +9,7 @@ import 'package:watch_next/ui/widgets/common/searchfield/searchfield.form.dart';
 ])
 class Searchfield extends StackedView<SearchViewModel> with $Searchfield {
   const Searchfield({super.key});
+
   @override
   void onDispose(viewModel) {
     searchFieldController.dispose();
@@ -25,9 +26,8 @@ class Searchfield extends StackedView<SearchViewModel> with $Searchfield {
           prefixIcon: Icon(Icons.search),
           //TODO find a way to rebuid from to show hint text according to selected tab
           hintText: 'Search'),
-      // autofocus: true,
+      autofocus: true,
       controller: searchFieldController,
-      // onChanged: viewModel.getSeriesName,
       onSubmitted: viewModel.getSeriesName,
     );
   }

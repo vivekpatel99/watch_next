@@ -11,7 +11,10 @@ class SearchView extends StackedView<SearchViewModel> {
   const SearchView({super.key});
   @override
   Widget builder(
-      BuildContext context, SearchViewModel viewModel, Widget? child) {
+    BuildContext context,
+    SearchViewModel viewModel,
+    Widget? child,
+  ) {
     const List<Tab> myTabs = [
       Tab(child: Text('Watch List', style: subheadingStyle)),
       Tab(child: Text('Discover', style: subheadingStyle)),
@@ -21,7 +24,9 @@ class SearchView extends StackedView<SearchViewModel> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          leading: const BackButton(),
+          leading: BackButton(
+            onPressed: viewModel.backButtonClicked,
+          ),
           flexibleSpace: const Padding(
             padding: EdgeInsets.only(left: 50, right: 50, top: 30),
             child: Searchfield(),

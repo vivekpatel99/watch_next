@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/themes/styles.dart';
+import 'package:watch_next/ui/widgets/common/tabview/tab_discover_view.dart';
+import 'package:watch_next/ui/widgets/common/tabview/tab_watchlist_view.dart';
 
 import 'home_viewmodel.dart';
 
@@ -17,7 +19,7 @@ class HomeView extends StackedView<HomeViewModel> {
     final log = getLogger('HomeView');
     log.i('HomeView started');
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 3,
       child: Scaffold(
         appBar: myAppBar(viewModel: viewModel),
@@ -25,25 +27,26 @@ class HomeView extends StackedView<HomeViewModel> {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 25.0),
             child: TabBarView(children: [
-              Text('Watch List'),
+              TabWatchListview(),
               Text('Upcoming'),
               Text('Recent'),
             ]),
           ),
         ),
-        floatingActionButton: myFloatingActionButton(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: viewModel.searchButtonClicked,
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }
 
-  FloatingActionButton myFloatingActionButton() {
-    return FloatingActionButton(
-      onPressed: () {},
-      child: const Icon(Icons.add),
-    );
-  }
-
   AppBar myAppBar({required HomeViewModel viewModel}) {
+    const List<Tab> myTabs = [
+      Tab(child: Text('Watch List', style: subheadingStyle)),
+      Tab(child: Text('Upcomming', style: subheadingStyle)),
+      Tab(child: Text('Recent', style: subheadingStyle)),
+    ];
     return AppBar(
       title: const Text('Shows', style: heading1Style),
       actions: [
@@ -53,11 +56,7 @@ class HomeView extends StackedView<HomeViewModel> {
         IconButton(
             onPressed: () {}, icon: const Icon(Icons.more_vert, size: 40.0))
       ],
-      bottom: const TabBar(tabs: [
-        Tab(child: Text('Watch List', style: subheadingStyle)),
-        Tab(child: Text('Upcomming', style: subheadingStyle)),
-        Tab(child: Text('Recent', style: subheadingStyle)),
-      ]),
+      bottom: const TabBar(tabs: myTabs),
     );
   }
 
