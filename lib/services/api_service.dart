@@ -46,6 +46,9 @@ class ApiService {
     log.i('fetchTvSeries');
     try {
       final result = await sendRequest(url: url);
+      if (result['results'] == null) {
+        throw Exception('No results found');
+      }
       final List<TvSeriesSearchResult> searchTvSeries =
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
@@ -56,19 +59,5 @@ class ApiService {
       log.e(e);
       throw Exception(e);
     }
-  }
-
-  Future<List<TvSeriesSearchResult>> searchTvSeries(
-      {required String seriesName}) async {
-    log.i('searchTvSeries');
-    String tvSeriesUrl =
-        '${ApiConstants.searchTVSeriesUrl}$seriesName${ApiConstants.apiKey}';
-    return await fetchTvSeries(url: tvSeriesUrl);
-  }
-
-  Future<List<TvSeriesSearchResult>> fetchTrandingTodayTvSeries() async {
-    log.i('fetchTrandingTodayTvSeries');
-    String tradingTodayUrl = ApiConstants.trandingTodayUrl;
-    return await fetchTvSeries(url: tradingTodayUrl);
   }
 }

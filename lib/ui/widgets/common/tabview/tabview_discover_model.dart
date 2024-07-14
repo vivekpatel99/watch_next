@@ -1,6 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
+import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:watch_next/services/api_service.dart';
 import 'package:watch_next/services/hivedb_service.dart';
@@ -31,12 +32,13 @@ class TabviewDiscoverModel extends ReactiveViewModel {
     log.i('futureToRun');
     if (_searchService.searchQuery != null) {
       log.i('searchvalue ${_searchService.searchQuery}');
-      _fetchedData = await _apiService.searchTvSeries(
-          seriesName: _searchService.searchQuery!);
-
+      String tvSeriesUrl =
+          '${ApiConstants.searchTVSeriesUrl}${_searchService.searchQuery!}${ApiConstants.apiKey}';
+      _fetchedData = await _apiService.fetchTvSeries(url: tvSeriesUrl);
       log.i('searchTvSeries data lenght - ${_fetchedData.length}');
     } else {
-      _fetchedData = await _apiService.fetchTrandingTodayTvSeries();
+      String tradingTodayUrl = ApiConstants.trandingTodayUrl;
+      _fetchedData = await _apiService.fetchTvSeries(url: tradingTodayUrl);
       log.i('fetchTrandingTodayTvSeries data lenght - ${_fetchedData.length}');
     }
 
