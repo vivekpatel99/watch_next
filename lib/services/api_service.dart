@@ -8,6 +8,8 @@ import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 
 class ApiService {
   final log = getLogger('ApiService');
+  http.Client client;
+  ApiService({http.Client? client}) : client = client ?? http.Client();
 
 //https://developer.themoviedb.org/reference/tv-episode-details
 // Search TV series
@@ -25,7 +27,7 @@ class ApiService {
   Future<dynamic> sendRequest({required String url}) async {
     log.i('sendRequest');
     // Make the HTTP GET request
-    final response = await http.get(Uri.parse(url));
+    final response = await client.get(Uri.parse(url));
 
     // Check for successful response
     if (response.statusCode == 200) {
