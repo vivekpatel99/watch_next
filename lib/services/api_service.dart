@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:watch_next/app/app.logger.dart';
-import 'package:watch_next/contants/api_constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 
