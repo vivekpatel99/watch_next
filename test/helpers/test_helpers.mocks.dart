@@ -730,6 +730,15 @@ class MockApiService extends _i1.Mock implements _i9.ApiService {
       ) as _i3.Client);
 
   @override
+  set client(_i3.Client? _client) => super.noSuchMethod(
+        Invocation.setter(
+          #client,
+          _client,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i7.Future<dynamic> sendRequest({required String? url}) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -749,36 +758,6 @@ class MockApiService extends _i1.Mock implements _i9.ApiService {
           #fetchTvSeries,
           [],
           {#url: url},
-        ),
-        returnValue: _i7.Future<List<_i10.TvSeriesSearchResult>>.value(
-            <_i10.TvSeriesSearchResult>[]),
-        returnValueForMissingStub:
-            _i7.Future<List<_i10.TvSeriesSearchResult>>.value(
-                <_i10.TvSeriesSearchResult>[]),
-      ) as _i7.Future<List<_i10.TvSeriesSearchResult>>);
-
-  @override
-  _i7.Future<List<_i10.TvSeriesSearchResult>> searchTvSeries(
-          {required String? seriesName}) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #searchTvSeries,
-          [],
-          {#seriesName: seriesName},
-        ),
-        returnValue: _i7.Future<List<_i10.TvSeriesSearchResult>>.value(
-            <_i10.TvSeriesSearchResult>[]),
-        returnValueForMissingStub:
-            _i7.Future<List<_i10.TvSeriesSearchResult>>.value(
-                <_i10.TvSeriesSearchResult>[]),
-      ) as _i7.Future<List<_i10.TvSeriesSearchResult>>);
-
-  @override
-  _i7.Future<List<_i10.TvSeriesSearchResult>> fetchTrandingTodayTvSeries() =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #fetchTrandingTodayTvSeries,
-          [],
         ),
         returnValue: _i7.Future<List<_i10.TvSeriesSearchResult>>.value(
             <_i10.TvSeriesSearchResult>[]),

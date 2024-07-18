@@ -10,6 +10,8 @@ import 'package:watch_next/ui/views/search/search_view.dart';
 import 'package:watch_next/services/searchquery_service.dart';
 import 'package:watch_next/services/hivedb_service.dart';
 import 'package:watch_next/services/my_snackbar_service.dart';
+import 'package:watch_next/ui/views/upcoming/upcoming_view.dart';
+import 'package:watch_next/ui/views/recent/recent_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -18,6 +20,8 @@ import 'package:watch_next/services/my_snackbar_service.dart';
     MaterialRoute(page: StartupView),
     MaterialRoute(page: SearchView),
 
+    MaterialRoute(page: TabUpcomingView),
+    MaterialRoute(page: TabRecentView),
 // @stacked-route
   ],
   dependencies: [

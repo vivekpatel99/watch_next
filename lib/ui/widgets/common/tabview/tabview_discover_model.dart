@@ -33,7 +33,7 @@ class TabviewDiscoverModel extends ReactiveViewModel {
     if (_searchService.searchQuery != null) {
       log.i('searchvalue ${_searchService.searchQuery}');
       String tvSeriesUrl =
-          '${ApiConstants.searchTVSeriesUrl}${_searchService.searchQuery!}${ApiConstants.apiKey}';
+          '${ApiConstants.searchTVSeriesUrl}${_searchService.searchQuery!}&${ApiConstants.apiKey}';
       _fetchedData = await _apiService.fetchTvSeries(url: tvSeriesUrl);
       log.i('searchTvSeries data lenght - ${_fetchedData.length}');
     } else {

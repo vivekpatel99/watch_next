@@ -8,31 +8,31 @@ import 'package:watch_next/datamodels/next_episode_to_air.dart';
 import 'package:watch_next/datamodels/season.dart';
 
 class TvSeriesItemModel {
-  final bool adult;
-  final String backdropPath;
-  final List<CreatedBy> createdBy;
-  final List<int> episodeRunTime;
-  final String firstAirDate;
-  final List<Genre> genres;
-  final String homepage;
+  final bool? adult;
+  final String? backdropPath;
+  final List<CreatedBy>? createdBy;
+  final List<int>? episodeRunTime;
+  final String? firstAirDate;
+  final List<Genre>? genres;
+  final String? homepage;
   final int id;
-  final bool inProduction;
-  final List<String> languages;
-  final String lastAirDate;
+  final bool? inProduction;
+  final List<String>? languages;
+  final String? lastAirDate;
   final String name;
-  final NextEpisodeToAir nextEpisodeToAir;
-  final List<Network> networks;
-  final int numberOfEpisodes;
-  final int numberOfSeasons;
-  final List<String> originCountry;
-  final String originalLanguage;
-  final String overview;
-  final String posterPath;
-  final List<Season> seasons;
-  final String status;
-  final String tagline;
-  final double voteAverage;
-  final int voteCount;
+  final NextEpisodeToAir? nextEpisodeToAir;
+  final List<Network>? networks;
+  final int? numberOfEpisodes;
+  final int? numberOfSeasons;
+  final List<String>? originCountry;
+  final String? originalLanguage;
+  final String? overview;
+  final String? posterPath;
+  final List<Season>? seasons;
+  final String? status;
+  final String? tagline;
+  final double? voteAverage;
+  final int? voteCount;
 
   TvSeriesItemModel({
     required this.adult,
@@ -72,7 +72,7 @@ class TvSeriesItemModel {
             .toList(),
         episodeRunTime: (json['episode_run_time'] as List<dynamic>).cast<int>(),
         firstAirDate: json['first_air_date'] as String,
-        genres: (json['genres'] as List<Genre>)
+        genres: (json['genres'] as List<dynamic>)
             .map((dynamic item) => Genre.fromJson(item as Map<String, dynamic>))
             .toList(),
         homepage: json['homepage'] as String,
@@ -107,25 +107,29 @@ class TvSeriesItemModel {
     return <String, dynamic>{
       'adult': adult,
       'backdropPath': backdropPath,
-      'createdBy': createdBy.map((x) => x.toMap()).toList(),
+      'createdBy':
+          (createdBy != null) ? createdBy!.map((x) => x.toMap()).toList() : [],
       'episodeRunTime': episodeRunTime,
       'firstAirDate': firstAirDate,
-      'genres': genres.map((x) => x.toMap()).toList(),
+      'genres': (genres != null) ? genres!.map((x) => x.toMap()).toList() : [],
       'homepage': homepage,
       'id': id,
       'inProduction': inProduction,
       'languages': languages,
       'lastAirDate': lastAirDate,
       'name': name,
-      'nextEpisodeToAir': nextEpisodeToAir.toMap(),
-      'networks': networks.map((x) => x.toMap()).toList(),
+      'nextEpisodeToAir':
+          (nextEpisodeToAir != null) ? nextEpisodeToAir!.toMap() : null,
+      'networks':
+          (networks != null) ? networks!.map((x) => x.toMap()).toList() : null,
       'numberOfEpisodes': numberOfEpisodes,
       'numberOfSeasons': numberOfSeasons,
       'originCountry': originCountry,
       'originalLanguage': originalLanguage,
       'overview': overview,
       'posterPath': posterPath,
-      'seasons': seasons.map((x) => x.toMap()).toList(),
+      'seasons':
+          (seasons != null) ? seasons!.map((x) => x.toMap()).toList() : null,
       'status': status,
       'tagline': tagline,
       'voteAverage': voteAverage,

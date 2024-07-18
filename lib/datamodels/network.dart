@@ -3,9 +3,9 @@ import 'dart:convert';
 
 class Network {
   final int id;
-  final String logoPath;
+  final String? logoPath; // Allow logoPath to be null
   final String name;
-  final String originCountry;
+  final String? originCountry; // Allow originCountry to be null
 
   Network({
     required this.id,

@@ -7,7 +7,7 @@ class ApiConstants {
   static String apiKey = dotenv.env['API_KEY']!;
 
   static String searchTVSeriesUrl = '${apiEndpoint}search/tv?query=';
-
+  static String searchTVSeasonsUrl = '${apiEndpoint}tv/';
   static String trandingTodayUrl = '${apiEndpoint}trending/tv/day?$apiKey';
 
   static String fetchTVSeriesInfoUrl = '${apiEndpoint}tv/';

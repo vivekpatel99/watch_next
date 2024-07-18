@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:watch_next/app/app.logger.dart';
 import 'package:http/http.dart' as http;
+import 'package:watch_next/datamodels/series_item_model.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 
 class ApiService {
@@ -54,6 +55,23 @@ class ApiService {
               .toList();
       log.d(searchTvSeries[0].name);
       return searchTvSeries;
+    } catch (e) {
+      log.e(e);
+      throw Exception(e);
+    }
+  }
+
+  Future<TvSeriesItemModel> fetchTvSeriesDetails({required String url}) async {
+    log.i('fetchTvSeriesDetails');
+    try {
+      final result = await sendRequest(url: url);
+      if (result == null) {
+        throw Exception('No results found');
+      }
+      final TvSeriesItemModel seriesDetails =
+          TvSeriesItemModel.fromJson(result);
+      log.d(seriesDetails.name);
+      return seriesDetails;
     } catch (e) {
       log.e(e);
       throw Exception(e);

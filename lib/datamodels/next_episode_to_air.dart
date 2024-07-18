@@ -5,12 +5,12 @@ class NextEpisodeToAir {
   final int id;
   final String name;
   final String overview;
-  final double voteAverage;
-  final int voteCount;
-  final String airDate;
+  final double? voteAverage; // Allow voteAverage to be null
+  final int? voteCount; // Allow voteCount to be null
+  final String? airDate; // Allow airDate to be null
   final int episodeNumber;
-  final String episodeType;
-  final String productionCode;
+  final String? episodeType; // Allow episodeType to be null
+  final String? productionCode; // Allow productionCode to be null
   final dynamic runtime; // Can be null based on the JSON data
   final int seasonNumber;
   final int showId;

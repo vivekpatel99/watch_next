@@ -2,8 +2,8 @@
 import 'dart:convert';
 
 class Season {
-  final String airDate;
-  final List<Episode> episodes;
+  final String? airDate;
+  final List<Episode>? episodes;
 
   Season({
     required this.airDate,
@@ -21,7 +21,8 @@ class Season {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'airDate': airDate,
-      'episodes': episodes.map((x) => x.toMap()).toList(),
+      'episodes':
+          episodes != null ? episodes!.map((x) => x.toMap()).toList() : [],
     };
   }
 

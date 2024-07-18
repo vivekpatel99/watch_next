@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/themes/styles.dart';
+import 'package:watch_next/ui/views/recent/recent_view.dart';
+import 'package:watch_next/ui/views/upcoming/upcoming_view.dart';
 import 'package:watch_next/ui/widgets/common/tabview/tab_watchlist_view.dart';
 
 import 'home_viewmodel.dart';
@@ -27,8 +29,8 @@ class HomeView extends StackedView<HomeViewModel> {
             padding: EdgeInsets.symmetric(horizontal: 25.0),
             child: TabBarView(children: [
               TabWatchListview(),
-              Text('Upcoming'),
-              Text('Recent'),
+              TabUpcomingView(),
+              TabRecentView(),
             ]),
           ),
         ),
@@ -43,7 +45,7 @@ class HomeView extends StackedView<HomeViewModel> {
   AppBar myAppBar({required HomeViewModel viewModel}) {
     const List<Tab> myTabs = [
       Tab(child: Text('Watch List', style: subheadingStyle)),
-      Tab(child: Text('Upcomming', style: subheadingStyle)),
+      Tab(child: Text('Upcoming', style: subheadingStyle)),
       Tab(child: Text('Recent', style: subheadingStyle)),
     ];
     return AppBar(

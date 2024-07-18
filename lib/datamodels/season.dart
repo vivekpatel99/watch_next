@@ -2,14 +2,14 @@
 import 'dart:convert';
 
 class Season {
-  final String airDate;
-  final int episodeCount;
+  final String? airDate;
+  final int? episodeCount;
   final int id;
   final String name;
-  final String overview;
-  final String posterPath;
-  final int seasonNumber;
-  final double voteAverage;
+  final String? overview;
+  final String? posterPath;
+  final int? seasonNumber;
+  final double? voteAverage;
 
   Season({
     required this.airDate,
@@ -23,14 +23,14 @@ class Season {
   });
 
   factory Season.fromJson(Map<String, dynamic> json) => Season(
-        airDate: json['air_date'] as String,
-        episodeCount: json['episode_count'] as int,
+        airDate: json['air_date'] as String?,
+        episodeCount: json['episode_count'] as int?,
         id: json['id'] as int,
         name: json['name'] as String,
-        overview: json['overview'] as String,
-        posterPath: json['poster_path'] as String,
-        seasonNumber: json['season_number'] as int,
-        voteAverage: json['vote_average'] as double,
+        overview: json['overview'] as String?,
+        posterPath: json['poster_path'] as String?,
+        seasonNumber: json['season_number'] as int?,
+        voteAverage: json['vote_average'] as double?,
       );
 
   Map<String, dynamic> toMap() {

@@ -21,10 +21,4 @@ class SearchViewModel extends FormViewModel {
     log.i('searchButtonClicked');
     _navigationService.navigateToHomeView();
   }
-
-  void watchListTabClicked() {
-    // rebuildUi();
-  }
-
-  void discoverTabClicked() {}
 }
