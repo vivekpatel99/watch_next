@@ -1,9 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
-import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/contants/constansts.dart';
-import 'package:watch_next/datamodels/series_item_model.dart';
 
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
