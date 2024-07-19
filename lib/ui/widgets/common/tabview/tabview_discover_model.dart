@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
@@ -47,16 +46,21 @@ class TabviewDiscoverModel extends ReactiveViewModel {
     return _fetchedData;
   }
 
+  void undoActionButton() {}
+
   void toggleChecked(bool? value, TvSeriesSearchResult item) {
     if (value != null) {
       item.isChecked = true;
       _hiveService.addModel(item);
       log.i('Model added ${item.name}');
-      // TODO Add snackber to display message
-      _snackbarService.customSnackbar('message from tabvew');
+
+      _snackbarService.customSnackbar(
+          '${item.name} added into Watchlist', undoActionButton);
     } else {
       item.isChecked = false;
-      // TODO Add snackber to display message
+
+      _snackbarService.customSnackbar(
+          '${item.name} will not be added into Watchlist', undoActionButton);
     }
     rebuildUi();
   }

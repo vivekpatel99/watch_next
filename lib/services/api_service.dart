@@ -27,47 +27,39 @@ class ApiService {
   // https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}?api_key=dotenv.env['API_KEY']
 
   Future<dynamic> sendRequest({required String url}) async {
-// TODO use Either and throw Error when 3 try attempt finishes
+    // TODO use Either and throw Error when 3 try attempt finishes
     log.i('sendRequest');
-    http.Response? response;
+    // http.Response? response;
 
     const retryOption = RetryOptions(
       maxAttempts: 3, // Number of retry attempts
-      delayFactor: Duration(seconds: 5), // Initial delay between retries
+      delayFactor: Duration(seconds: 3), // Initial delay between retries
     );
 
     // Get statusCode by retrying a function
-    await retryOption
-        .retry(
-          () => client.get(Uri.parse(url)).timeout(const Duration(seconds: 5)),
-          retryIf: (e) => e is SocketException || e is TimeoutException,
-          onRetry: (attempt) =>
-              log.w('Failed to connect to server. Retrying... ($attempt)'),
-        )
-        .then((resp) => response = resp)
-        .catchError((e) {
-      log.e('Request failed: $e');
-      log.e('#####################');
-      return http.Response('Error', 500);
-    }).whenComplete(
-            // Always close an HttpClient from dart:io, to close TCP connections in the
-            // connection pool. Many servers has keep-alive to reduce round-trip time
-            // for additional requests and avoid that clients run out of port and
-            // end up in WAIT_TIME unpleasantries...
-            () => client.close());
+    try {
+      final response = await retryOption.retry(
+        () => client.get(Uri.parse(url)).timeout(const Duration(seconds: 5)),
+        retryIf: (e) => e is SocketException || e is TimeoutException,
+        onRetry: (attempt) =>
+            log.w('Failed to connect to server. Retrying... ($attempt)'),
+      );
 
-    if (response != null) {
-      // Check for successful response
-      if (response!.statusCode == 200) {
-        log.i('Requst Response - ${response!.statusCode}');
-        // Decode the JSON response
-        return jsonDecode(response!.body);
+      if (response.statusCode == 200) {
+        log.i('Request Response - ${response.statusCode}');
+        return jsonDecode(response.body);
+      } else {
+        log.e('Failed to load TV series: ${response.statusCode}');
+        throw Exception('Failed to load TV series: ${response.statusCode}');
       }
-    } else {
-      // Handle error scenario
-      log.e(response?.statusCode);
-      throw Exception('Failed to load TV series: ${response?.statusCode}');
+    } catch (e) {
+      log.e('Request failed: $e');
+      throw Exception('Request failed: $e');
     }
+  }
+
+  void dispose() {
+    client.close();
   }
 
   Future<List<TvSeriesSearchResult>> fetchTvSeries(

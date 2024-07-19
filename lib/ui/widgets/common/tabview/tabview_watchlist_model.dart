@@ -12,14 +12,14 @@ class TabviewWatchListModel extends BaseViewModel {
   final MySnackbarService _snackbarService = locator<MySnackbarService>();
 
   Box? get getWatchListBox => _hiveService.getwatchListBox;
-
+  void undoActionButton() {}
   void toggleChecked(bool? value, TvSeriesSearchResult item) {
     log.i('toggleChecked ${item.name}');
     _hiveService.removeModel(item);
     item.isChecked = false;
     log.i('Model Removed ${item.name}');
-    // TODO Add snackber to display messagej with  UNDO Option
-    _snackbarService.customSnackbar('message from TabviewWatchListModel');
-    rebuildUi();
+
+    _snackbarService.customSnackbar(
+        '${item.name} removed from Watchlist', undoActionButton);
   }
 }
