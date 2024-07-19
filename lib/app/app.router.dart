@@ -22,16 +22,16 @@ class Routes {
 
   static const searchView = '/search-view';
 
-  static const upcomingView = '/upcoming-view';
+  static const tabUpcomingView = '/tab-upcoming-view';
 
-  static const recentView = '/recent-view';
+  static const tabRecentView = '/tab-recent-view';
 
   static const all = <String>{
     homeView,
     startupView,
     searchView,
-    upcomingView,
-    recentView,
+    tabUpcomingView,
+    tabRecentView,
   };
 }
 
@@ -50,11 +50,11 @@ class StackedRouter extends _i1.RouterBase {
       page: _i4.SearchView,
     ),
     _i1.RouteDef(
-      Routes.upcomingView,
+      Routes.tabUpcomingView,
       page: _i5.TabUpcomingView,
     ),
     _i1.RouteDef(
-      Routes.recentView,
+      Routes.tabRecentView,
       page: _i6.TabRecentView,
     ),
   ];
@@ -142,28 +142,28 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToUpcomingView([
+  Future<dynamic> navigateToTabUpcomingView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.upcomingView,
+    return navigateTo<dynamic>(Routes.tabUpcomingView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToRecentView([
+  Future<dynamic> navigateToTabRecentView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.recentView,
+    return navigateTo<dynamic>(Routes.tabRecentView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -212,28 +212,28 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithUpcomingView([
+  Future<dynamic> replaceWithTabUpcomingView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.upcomingView,
+    return replaceWith<dynamic>(Routes.tabUpcomingView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithRecentView([
+  Future<dynamic> replaceWithTabRecentView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.recentView,
+    return replaceWith<dynamic>(Routes.tabRecentView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

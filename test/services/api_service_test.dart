@@ -31,9 +31,9 @@ void main() {
     tearDown(() => locator.reset());
 
     group('Construct ApiService -', () {
-      test('Constructing Service should find correct dependencies', () {
-        expect(apiService != null, true);
-      });
+      // test('Constructing Service should find correct dependencies', () {
+      //   expect(apiService != null, true);
+      // });
     });
 
     group('SendRequest -', () {

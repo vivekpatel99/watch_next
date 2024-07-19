@@ -7,8 +7,6 @@ import 'package:mockito/mockito.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 
-
-
 class MockBox extends Mock implements Box<TvSeriesSearchResult> {}
 
 class MockHiveInterface extends Mock implements HiveObjectMixin {}
