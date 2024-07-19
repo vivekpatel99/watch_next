@@ -50,16 +50,6 @@ class HivedbService {
         _watchListBox!.put(model.id, model);
         log.i('model added - ${model.name}');
       }
-      // fetch selected name of the Series and grab the ID
-      // Search Series on the basic of ID -  https://api.themoviedb.org/3/tv/{ID}?api_key=dotenv.env['API_KEY']
-      final url =
-          '${ApiConstants.searchTVSeasonsUrl}${model.id}?${ApiConstants.apiKey}';
-      log.d(url);
-      TvSeriesItemModel seriesDetails =
-          await _apiService.fetchTvSeriesDetails(url: url);
-      log.d(seriesDetails);
-      // get list of Sessions
-      // Search all the episode details from each Session
     } catch (e) {
       log.e(e);
     }

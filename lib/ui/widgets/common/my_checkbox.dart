@@ -15,7 +15,7 @@ class MyCheckBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Checkbox(
-        tristate: true,
+        tristate: false,
         value: item.isChecked,
         onChanged: (value) {
           viewModel.toggleChecked(value, item);

@@ -13,6 +13,7 @@ class TabviewWatchListModel extends BaseViewModel {
 
   Box? get getWatchListBox => _hiveService.getwatchListBox;
   void undoActionButton() {}
+
   void toggleChecked(bool? value, TvSeriesSearchResult item) {
     log.i('toggleChecked ${item.name}');
     _hiveService.removeModel(item);
