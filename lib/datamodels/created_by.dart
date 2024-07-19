@@ -1,13 +1,28 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class CreatedBy {
+import 'package:hive_flutter/hive_flutter.dart';
+part 'created_by.g.dart';
+
+@HiveType(typeId: 5) // Adjust typeId if needed
+class CreatedBy extends HiveObject {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String creditId;
+
+  @HiveField(2)
   final String name;
+
+  @HiveField(3)
   final String originalName;
+
+  @HiveField(4)
   final int gender;
-  final String profilePath;
+
+  @HiveField(5)
+  final String? profilePath;
 
   CreatedBy({
     required this.id,

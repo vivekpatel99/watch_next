@@ -1,8 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+part 'genre.g.dart';
+
+@HiveType(typeId: 4)
 class Genre {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
 
   Genre({

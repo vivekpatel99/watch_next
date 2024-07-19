@@ -4,8 +4,7 @@ import 'package:stacked/stacked.dart';
 
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
-import 'package:watch_next/ui/widgets/common/my_checkbox.dart';
-import 'package:watch_next/ui/widgets/common/my_list_tile.dart';
+import 'package:watch_next/ui/widgets/common/my_list_tile/my_list_tile.dart';
 import 'package:watch_next/ui/widgets/common/tabview/tabview_discover_model.dart';
 
 class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
@@ -47,9 +46,11 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
                                     item.posterPath!
                                 : null;
                             return MyListTile(
-                                posterUrl: posterUrl!,
-                                item: item,
-                                myCheckbox: _MyCheckBox(item: item, key: key));
+                              posterUrl: posterUrl!,
+                              item: item,
+                              message: '',
+                              isWatchlistView: false,
+                            );
                           },
                           // separatorBuilder: (BuildContext context, int index) =>
                           //     horizontalSpaceSmall,
@@ -65,16 +66,16 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
       TabviewDiscoverModel();
 }
 
-class _MyCheckBox extends StatelessWidget {
-  final TvSeriesSearchResult item;
-  const _MyCheckBox({Key? key, required this.item}) : super(key: key);
+// class MyCheckBox extends StatelessWidget {
+//   final TvSeriesSearchResult item;
+//   const MyCheckBox({Key? key, required this.item}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<TabviewDiscoverModel>.reactive(
-      builder: (context, viewModel, child) =>
-          MyCheckBoxWidget(viewModel: viewModel, item: item),
-      viewModelBuilder: () => TabviewDiscoverModel(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ViewModelBuilder<TabviewDiscoverModel>.reactive(
+//       builder: (context, viewModel, child) =>
+//           MyCheckBoxWidget(viewModel: viewModel, item: item),
+//       viewModelBuilder: () => TabviewDiscoverModel(),
+//     );
+//   }
+// }

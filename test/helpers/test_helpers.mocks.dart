@@ -763,6 +763,15 @@ class MockApiService extends _i1.Mock implements _i10.ApiService {
       ) as _i8.Future<dynamic>);
 
   @override
+  void dispose() => super.noSuchMethod(
+        Invocation.method(
+          #dispose,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   _i8.Future<List<_i11.TvSeriesSearchResult>> fetchTvSeries(
           {required String? url}) =>
       (super.noSuchMethod(
@@ -917,6 +926,15 @@ class MockHivedbService extends _i1.Mock implements _i13.HivedbService {
       );
 
   @override
+  void addModelDetails(_i11.TvSeriesSearchResult? model) => super.noSuchMethod(
+        Invocation.method(
+          #addModelDetails,
+          [model],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
   void removeModel(_i11.TvSeriesSearchResult? model) => super.noSuchMethod(
         Invocation.method(
           #removeModel,
@@ -929,5 +947,20 @@ class MockHivedbService extends _i1.Mock implements _i13.HivedbService {
 /// A class which mocks [MySnackbarService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMySnackbarService extends _i1.Mock
-    implements _i14.MySnackbarService {}
+class MockMySnackbarService extends _i1.Mock implements _i14.MySnackbarService {
+  @override
+  void customSnackbar(
+    String? message, [
+    _i9.VoidCallback? undoAction,
+  ]) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #customSnackbar,
+          [
+            message,
+            undoAction,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      );
+}

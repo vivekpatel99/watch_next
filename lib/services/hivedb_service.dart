@@ -2,6 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/constansts.dart';
+import 'package:watch_next/datamodels/series_item_model.dart';
 
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -12,6 +13,7 @@ class HivedbService {
   final ApiService _apiService = locator<ApiService>();
 
   Box<TvSeriesSearchResult>? _watchListBox;
+  Box<TvSeriesItemModel>? _watchListItemDetailBox;
 
   Future<void> init() async {
     log.i('init');
@@ -40,6 +42,20 @@ class HivedbService {
   }
 
   void addModel(TvSeriesSearchResult model) async {
+    try {
+      if (_watchListBox?.get(model.id) != null) {
+        log.i('model already exist - ${model.name}');
+        return;
+      } else {
+        _watchListBox!.put(model.id, model);
+        log.i('model added - ${model.name}');
+      }
+    } catch (e) {
+      log.e(e);
+    }
+  }
+
+  void addModelDetails(TvSeriesSearchResult model) async {
     try {
       if (_watchListBox?.get(model.id) != null) {
         log.i('model already exist - ${model.name}');

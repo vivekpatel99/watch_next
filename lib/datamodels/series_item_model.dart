@@ -1,37 +1,90 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:watch_next/datamodels/created_by.dart';
 import 'package:watch_next/datamodels/genre.dart';
 import 'package:watch_next/datamodels/network.dart';
 import 'package:watch_next/datamodels/next_episode_to_air.dart';
 import 'package:watch_next/datamodels/season.dart';
 
-class TvSeriesItemModel {
+part 'series_item_model.g.dart';
+
+@HiveType(typeId: 0)
+class TvSeriesItemModel extends HiveObject {
+  @HiveField(0)
   final bool? adult;
+
+  @HiveField(1)
   final String? backdropPath;
+
+  @HiveField(2)
   final List<CreatedBy>? createdBy;
+
+  @HiveField(3)
   final List<int>? episodeRunTime;
+
+  @HiveField(4)
   final String? firstAirDate;
+
+  @HiveField(5)
   final List<Genre>? genres;
+
+  @HiveField(6)
   final String? homepage;
+
+  @HiveField(7)
   final int id;
+
+  @HiveField(8)
   final bool? inProduction;
+
+  @HiveField(9)
   final List<String>? languages;
+
+  @HiveField(10)
   final String? lastAirDate;
+
+  @HiveField(11)
   final String name;
+
+  @HiveField(12)
   final NextEpisodeToAir? nextEpisodeToAir;
+
+  @HiveField(13)
   final List<Network>? networks;
+
+  @HiveField(14)
   final int? numberOfEpisodes;
+
+  @HiveField(15)
   final int? numberOfSeasons;
+
+  @HiveField(16)
   final List<String>? originCountry;
+
+  @HiveField(17)
   final String? originalLanguage;
+
+  @HiveField(18)
   final String? overview;
+
+  @HiveField(19)
   final String? posterPath;
+
+  @HiveField(20)
   final List<Season>? seasons;
+
+  @HiveField(21)
   final String? status;
+
+  @HiveField(22)
   final String? tagline;
+
+  @HiveField(23)
   final double? voteAverage;
+
+  @HiveField(24)
   final int? voteCount;
 
   TvSeriesItemModel({

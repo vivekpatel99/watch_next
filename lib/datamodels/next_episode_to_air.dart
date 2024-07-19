@@ -1,20 +1,50 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class NextEpisodeToAir {
+import 'package:hive_flutter/hive_flutter.dart';
+part 'next_episode_to_air.g.dart';
+
+@HiveType(typeId: 3) // Adjust typeId if needed
+class NextEpisodeToAir extends HiveObject {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final String overview;
-  final double? voteAverage; // Allow voteAverage to be null
-  final int? voteCount; // Allow voteCount to be null
-  final String? airDate; // Allow airDate to be null
+
+  @HiveField(3)
+  final double? voteAverage;
+
+  @HiveField(4)
+  final int? voteCount;
+
+  @HiveField(5)
+  final String? airDate;
+
+  @HiveField(6)
   final int episodeNumber;
-  final String? episodeType; // Allow episodeType to be null
-  final String? productionCode; // Allow productionCode to be null
-  final dynamic runtime; // Can be null based on the JSON data
+
+  @HiveField(7)
+  final String? episodeType;
+
+  @HiveField(8)
+  final String? productionCode;
+
+  // Use HiveField.json for dynamic data
+  @HiveField(9)
+  final dynamic runtime;
+
+  @HiveField(10)
   final int seasonNumber;
+
+  @HiveField(11)
   final int showId;
-  final String? stillPath; // Optional since stillPath might be null
+
+  @HiveField(12)
+  final String? stillPath;
 
   NextEpisodeToAir({
     required this.id,

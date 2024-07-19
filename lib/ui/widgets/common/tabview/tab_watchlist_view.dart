@@ -3,9 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
-import 'package:watch_next/ui/widgets/common/my_checkbox.dart';
-import 'package:watch_next/ui/widgets/common/my_list_tile.dart';
-
+import 'package:watch_next/ui/widgets/common/my_list_tile/my_list_tile.dart';
 import 'tabview_watchlist_model.dart';
 
 class TabWatchListview extends StackedView<TabviewWatchListModel> {
@@ -35,7 +33,8 @@ class TabWatchListview extends StackedView<TabviewWatchListModel> {
                   return MyListTile(
                     item: item,
                     posterUrl: posterUrl,
-                    myCheckbox: _MyCheckBox(item: item, key: key),
+                    message: '',
+                    isWatchlistView: true,
                   );
                 },
               );
@@ -49,16 +48,16 @@ class TabWatchListview extends StackedView<TabviewWatchListModel> {
       TabviewWatchListModel();
 }
 
-class _MyCheckBox extends StatelessWidget {
-  final TvSeriesSearchResult item;
-  const _MyCheckBox({Key? key, required this.item}) : super(key: key);
+// class _MyCheckBox extends StatelessWidget {
+//   final TvSeriesSearchResult item;
+//   const _MyCheckBox({Key? key, required this.item}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<TabviewWatchListModel>.reactive(
-      builder: (context, viewModel, child) =>
-          MyCheckBoxWidget(viewModel: viewModel, item: item),
-      viewModelBuilder: () => TabviewWatchListModel(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ViewModelBuilder<TabviewWatchListModel>.reactive(
+//       builder: (context, viewModel, child) =>
+//           MyCheckBoxWidget(viewModel: viewModel, item: item),
+//       viewModelBuilder: () => TabviewWatchListModel(),
+//     );
+//   }
+// }

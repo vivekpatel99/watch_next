@@ -1,11 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Network {
+import 'package:hive_flutter/hive_flutter.dart';
+part 'network.g.dart';
+
+@HiveType(typeId: 2) // Adjust typeId if needed
+class Network extends HiveObject {
+  @HiveField(0)
   final int id;
-  final String? logoPath; // Allow logoPath to be null
+
+  @HiveField(1)
+  final String? logoPath;
+
+  @HiveField(2)
   final String name;
-  final String? originCountry; // Allow originCountry to be null
+
+  @HiveField(3)
+  final String? originCountry;
 
   Network({
     required this.id,
