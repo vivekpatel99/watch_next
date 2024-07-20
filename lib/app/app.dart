@@ -13,8 +13,6 @@ import 'package:watch_next/services/my_snackbar_service.dart';
 import 'package:watch_next/ui/views/upcoming/upcoming_view.dart';
 import 'package:watch_next/ui/views/recent/recent_view.dart';
 import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
-import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
-import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
 // @stacked-import
 
 @StackedApp(

@@ -26,6 +26,7 @@ class MyListTileModel extends BaseViewModel {
     // get list of Sessions
     // Search all the episode details from each Session
     _dialogService.showCustomDialog(
+        barrierDismissible: true,
         variant: DialogType.onTapOverview,
         hasImage: true,
         data: seriesDetails,

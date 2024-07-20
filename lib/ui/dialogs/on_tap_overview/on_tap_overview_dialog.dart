@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:watch_next/contants/assests.dart';
 import 'package:watch_next/datamodels/series_item_model.dart';
 import 'package:watch_next/themes/styles.dart';
-import 'package:watch_next/ui/common/app_colors.dart';
 import 'package:watch_next/ui/common/ui_helpers.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/ui/widgets/dumb_widgets/show_cached_image.dart';
 
 import 'on_tap_overview_dialog_model.dart';
-
-const double _graphicSize = 60;
 
 class OnTapOverviewDialog extends StackedView<OnTapOverviewDialogModel> {
   final DialogRequest request;
@@ -46,7 +43,7 @@ class OnTapOverviewDialog extends StackedView<OnTapOverviewDialogModel> {
           children: [
             TitlePartWidget(request: request, model: model),
             verticalSpaceSmall,
-            overviewGenreRatingWidget(model: model),
+            OverviewGenreRatingWidget(model: model),
             verticalSpaceMedium,
             ButtonsWidgets(completer: completer)
           ],
@@ -108,8 +105,8 @@ class ButtonsWidgets extends StatelessWidget {
   }
 }
 
-class overviewGenreRatingWidget extends StatelessWidget {
-  const overviewGenreRatingWidget({
+class OverviewGenreRatingWidget extends StatelessWidget {
+  const OverviewGenreRatingWidget({
     super.key,
     required this.model,
   });
@@ -141,8 +138,18 @@ class overviewGenreRatingWidget extends StatelessWidget {
             children: [
               Image.asset(
                 Assets.imdbIcon,
-                width: 40,
+                width: 30,
                 height: 40,
+              ),
+              horizontalSpaceSmall,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('${model.voteAverage.toString()}/10',
+                      style: captionStyle.copyWith(fontSize: 18)),
+                  Text('${model.voteCount.toString()} votes',
+                      style: captionStyle.copyWith(fontSize: 18)),
+                ],
               )
             ],
           )

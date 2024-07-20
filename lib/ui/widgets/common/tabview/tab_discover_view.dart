@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:watch_next/ui/widgets/common/my_list_tile/my_list_tile.dart';
 import 'package:watch_next/ui/widgets/common/tabview/tabview_discover_model.dart';
