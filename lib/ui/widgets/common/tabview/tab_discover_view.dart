@@ -42,8 +42,7 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
                           itemBuilder: (context, index) {
                             final item = snapshot.data![index];
                             final posterUrl = (item.posterPath != null)
-                                ? ApiConstants.apiImageEndpoint +
-                                    item.posterPath!
+                                ? item.posterPath!
                                 : null;
                             return MyListTile(
                               posterUrl: posterUrl!,
@@ -65,17 +64,3 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
   ) =>
       TabviewDiscoverModel();
 }
-
-// class MyCheckBox extends StatelessWidget {
-//   final TvSeriesSearchResult item;
-//   const MyCheckBox({Key? key, required this.item}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ViewModelBuilder<TabviewDiscoverModel>.reactive(
-//       builder: (context, viewModel, child) =>
-//           MyCheckBoxWidget(viewModel: viewModel, item: item),
-//       viewModelBuilder: () => TabviewDiscoverModel(),
-//     );
-//   }
-// }

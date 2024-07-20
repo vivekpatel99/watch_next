@@ -12,6 +12,9 @@ import 'package:watch_next/services/hivedb_service.dart';
 import 'package:watch_next/services/my_snackbar_service.dart';
 import 'package:watch_next/ui/views/upcoming/upcoming_view.dart';
 import 'package:watch_next/ui/views/recent/recent_view.dart';
+import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
+import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
+import 'package:watch_next/ui/dialogs/on_tap_overview/on_tap_overview_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -40,7 +43,10 @@ import 'package:watch_next/ui/views/recent/recent_view.dart';
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: OnTapOverviewDialog),
+    StackedDialog(classType: OnTapOverviewDialog),
+    StackedDialog(classType: OnTapOverviewDialog),
+// @stacked-dialog
   ],
   logger: StackedLogger(),
 )

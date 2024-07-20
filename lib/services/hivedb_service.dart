@@ -24,13 +24,15 @@ class HivedbService {
       log.i('!Hive.isBoxOpen is True');
       Hive.registerAdapter(TvSeriesSearchResultAdapter());
       log.i('TvSeriesSearchResultAdapter registered');
-      _watchListBox =
-          await Hive.openBox<TvSeriesSearchResult>(Constansts.watchListBox);
+
+      _watchListBox = await Hive.openBox(Constansts.watchListBox);
+      // await _watchListBox!.clear();
       log.d('_watchListBox - $_watchListBox');
     } else {
       _watchListBox = Hive.box<TvSeriesSearchResult>(Constansts.watchListBox);
       log.d('_watchListBox - $_watchListBox');
-      log.i('!Hive.isBoxOpen is False and _watchListBox is set with box');
+      log.i(
+          '!Hive.isBoxOpen is False and _watchListBox is set with box                             ');
     }
   }
 

@@ -2,6 +2,8 @@
 import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
+import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/created_by.dart';
 import 'package:watch_next/datamodels/genre.dart';
 import 'package:watch_next/datamodels/network.dart';
@@ -25,7 +27,7 @@ class TvSeriesItemModel extends HiveObject {
   final List<int>? episodeRunTime;
 
   @HiveField(4)
-  final String? firstAirDate;
+  final DateTime? firstAirDate;
 
   @HiveField(5)
   final List<Genre>? genres;
@@ -43,7 +45,7 @@ class TvSeriesItemModel extends HiveObject {
   final List<String>? languages;
 
   @HiveField(10)
-  final String? lastAirDate;
+  final DateTime? lastAirDate;
 
   @HiveField(11)
   final String name;
@@ -115,47 +117,66 @@ class TvSeriesItemModel extends HiveObject {
     required this.voteCount,
   });
 
-  factory TvSeriesItemModel.fromJson(Map<String, dynamic> json) =>
-      TvSeriesItemModel(
-        adult: json['adult'] as bool,
-        backdropPath: json['backdrop_path'] as String,
-        createdBy: (json['created_by'] as List<dynamic>)
-            .map((dynamic item) =>
-                CreatedBy.fromJson(item as Map<String, dynamic>))
-            .toList(),
-        episodeRunTime: (json['episode_run_time'] as List<dynamic>).cast<int>(),
-        firstAirDate: json['first_air_date'] as String,
-        genres: (json['genres'] as List<dynamic>)
-            .map((dynamic item) => Genre.fromJson(item as Map<String, dynamic>))
-            .toList(),
-        homepage: json['homepage'] as String,
-        id: json['id'] as int,
-        inProduction: json['in_production'] as bool,
-        languages: (json['languages'] as List<dynamic>).cast<String>(),
-        lastAirDate: json['last_air_date'] as String,
-        name: json['name'] as String,
-        nextEpisodeToAir: NextEpisodeToAir.fromJson(
-            json['next_episode_to_air'] as Map<String, dynamic>),
-        networks: (json['networks'] as List<dynamic>)
-            .map((dynamic item) =>
-                Network.fromJson(item as Map<String, dynamic>))
-            .toList(),
-        numberOfEpisodes: json['number_of_episodes'] as int,
-        numberOfSeasons: json['number_of_seasons'] as int,
-        originCountry: (json['origin_country'] as List<dynamic>).cast<String>(),
-        originalLanguage: json['original_language'] as String,
-        overview: json['overview'] as String,
-        posterPath: json['poster_path'] as String,
-        seasons: (json['seasons'] as List<dynamic>)
-            .map(
-                (dynamic item) => Season.fromJson(item as Map<String, dynamic>))
-            .toList(),
-        status: json['status'] as String,
-        tagline: json['tagline'] as String,
-        voteAverage: json['vote_average'] as double,
-        voteCount: json['vote_count'] as int,
-      );
-
+  factory TvSeriesItemModel.fromJson(Map<String, dynamic> json) {
+    return TvSeriesItemModel(
+      adult: json['adult'] as bool?,
+      backdropPath: json['backdrop_path'] as String?,
+      createdBy: json['created_by'] != null
+          ? (json['created_by'] as List<dynamic>)
+              .map((item) => CreatedBy.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : null,
+      episodeRunTime: json['episode_run_time'] != null
+          ? (json['episode_run_time'] as List<dynamic>).cast<int>()
+          : null,
+      firstAirDate: json['first_air_date'] != null
+          ? DateFormat('yyyy-MM-dd').parse(json['first_air_date'] as String)
+          : null,
+      genres: json['genres'] != null
+          ? (json['genres'] as List<dynamic>)
+              .map((item) => Genre.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : null,
+      homepage: json['homepage'] as String?,
+      id: json['id'] as int,
+      inProduction: json['in_production'] as bool?,
+      languages: json['languages'] != null
+          ? (json['languages'] as List<dynamic>).cast<String>()
+          : null,
+      lastAirDate: json['last_air_date'] != null
+          ? DateFormat('yyyy-MM-dd').parse(json['last_air_date'] as String)
+          : null,
+      name: json['name'] as String,
+      nextEpisodeToAir: json['next_episode_to_air'] != null
+          ? NextEpisodeToAir.fromJson(
+              json['next_episode_to_air'] as Map<String, dynamic>)
+          : null,
+      networks: json['networks'] != null
+          ? (json['networks'] as List<dynamic>)
+              .map((item) => Network.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : null,
+      numberOfEpisodes: json['number_of_episodes'] as int?,
+      numberOfSeasons: json['number_of_seasons'] as int?,
+      originCountry: json['origin_country'] != null
+          ? (json['origin_country'] as List<dynamic>).cast<String>()
+          : null,
+      originalLanguage: json['original_language'] as String?,
+      overview: json['overview'] as String?,
+      posterPath: ((json['poster_path'] as String?) != null)
+          ? ApiConstants.apiImageEndpoint + (json['poster_path'] as String)
+          : null,
+      seasons: json['seasons'] != null
+          ? (json['seasons'] as List<dynamic>)
+              .map((item) => Season.fromJson(item as Map<String, dynamic>))
+              .toList()
+          : null,
+      status: json['status'] as String?,
+      tagline: json['tagline'] as String?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      voteCount: json['vote_count'] as int?,
+    );
+  }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'adult': adult,
@@ -194,13 +215,10 @@ class TvSeriesItemModel extends HiveObject {
     return TvSeriesItemModel(
       adult: map['adult'] as bool,
       backdropPath: map['backdropPath'] as String,
-      createdBy: List<CreatedBy>.from(
-        (map['createdBy'] as List<int>).map<CreatedBy>(
-          (x) => CreatedBy.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      createdBy: List<CreatedBy>.from((map['createdBy'] as List<int>)
+          .map<CreatedBy>((x) => CreatedBy.fromMap(x as Map<String, dynamic>))),
       episodeRunTime: List<int>.from((map['episodeRunTime'] as List<int>)),
-      firstAirDate: map['firstAirDate'] as String,
+      firstAirDate: map['firstAirDate'] as DateTime,
       genres: List<Genre>.from(
         (map['genres'] as List<int>).map<Genre>(
           (x) => Genre.fromMap(x as Map<String, dynamic>),
@@ -210,7 +228,7 @@ class TvSeriesItemModel extends HiveObject {
       id: map['id'] as int,
       inProduction: map['inProduction'] as bool,
       languages: List<String>.from((map['languages'] as List<String>)),
-      lastAirDate: map['lastAirDate'] as String,
+      lastAirDate: map['lastAirDate'] as DateTime,
       name: map['name'] as String,
       nextEpisodeToAir: NextEpisodeToAir.fromMap(
           map['nextEpisodeToAir'] as Map<String, dynamic>),

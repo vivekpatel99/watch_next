@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
-
+import 'package:intl/intl.dart';
+import 'package:watch_next/contants/api_constants.dart';
 part 'tv_series_search_response_model.g.dart';
 
 @HiveType(typeId: 1)
@@ -34,7 +35,7 @@ class TvSeriesSearchResult {
   final String? posterPath;
 
   @HiveField(9)
-  final String firstAirDate;
+  final DateTime firstAirDate;
 
   @HiveField(10)
   final String name;
@@ -75,8 +76,11 @@ class TvSeriesSearchResult {
         originalLanguage: json['original_language'] as String,
         originalName: json['original_name'] as String,
         overview: json['overview'] as String,
-        posterPath: json['poster_path'] as String?,
-        firstAirDate: json['first_air_date'] as String,
+        posterPath: (json['poster_path'] as String?) != null
+            ? ApiConstants.apiImageEndpoint + (json['poster_path'] as String)
+            : null,
+        firstAirDate:
+            DateFormat('yyyy-MM-dd').parse(json['first_air_date'] as String),
         name: json['name'] as String,
         voteAverage: json['vote_average'] as double?,
         voteCount: json['vote_count'] as int?,
@@ -112,7 +116,8 @@ class TvSeriesSearchResult {
       originalName: map['originalName'] as String,
       overview: map['overview'] as String,
       posterPath: map['posterPath'] as String,
-      firstAirDate: map['firstAirDate'] as String,
+      firstAirDate:
+          DateFormat('yyyy-MM-dd').parse(map['first_air_date'] as String),
       name: map['name'] as String,
       voteAverage: map['voteAverage'] as double,
       voteCount: map['voteCount'] as int,

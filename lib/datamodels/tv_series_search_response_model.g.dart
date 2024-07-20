@@ -27,7 +27,7 @@ class TvSeriesSearchResultAdapter extends TypeAdapter<TvSeriesSearchResult> {
       originalName: fields[6] as String,
       overview: fields[7] as String,
       posterPath: fields[8] as String?,
-      firstAirDate: fields[9] as String,
+      firstAirDate: fields[9] as DateTime,
       name: fields[10] as String,
       voteAverage: fields[11] as double?,
       voteCount: fields[12] as int?,

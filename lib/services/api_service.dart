@@ -74,7 +74,7 @@ class ApiService {
           (result['results'] as List<dynamic>)
               .map((item) => TvSeriesSearchResult.fromJson(item))
               .toList();
-      log.d(searchTvSeries[0].name);
+      log.d(searchTvSeries[0].name, searchTvSeries[0].id);
       return searchTvSeries;
     } catch (e) {
       log.e(e);
@@ -89,9 +89,12 @@ class ApiService {
       if (result == null) {
         throw Exception('No results found');
       }
+      if (result is! Map<String, dynamic>) {
+        throw Exception('Result is not a Map<String, dynamic>');
+      }
       final TvSeriesItemModel seriesDetails =
           TvSeriesItemModel.fromJson(result);
-      log.d(seriesDetails.name);
+      log.d(seriesDetails.name, seriesDetails.id);
       return seriesDetails;
     } catch (e) {
       log.e(e);
