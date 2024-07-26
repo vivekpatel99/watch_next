@@ -30,7 +30,7 @@ class CreatedBy extends HiveObject {
     required this.name,
     required this.originalName,
     required this.gender,
-    required this.profilePath,
+    this.profilePath,
   });
 
   factory CreatedBy.fromJson(Map<String, dynamic> json) => CreatedBy(
@@ -39,7 +39,7 @@ class CreatedBy extends HiveObject {
         name: json['name'] as String,
         originalName: json['original_name'] as String,
         gender: json['gender'] as int,
-        profilePath: json['profile_path'] as String,
+        profilePath: json['profile_path'] as String?,
       );
 
   Map<String, dynamic> toMap() {

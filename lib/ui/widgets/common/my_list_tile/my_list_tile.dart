@@ -41,7 +41,8 @@ class MyListTile extends StackedView<MyListTileModel> {
         maxLines: 3,
         softWrap: true,
       ),
-      onTap: () => viewModel.showDialog(contentId: item.id),
+      onTap: () =>
+          isWatchlistView ? () {} : viewModel.showDialog(contentId: item.id),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       trailing: MyCheckBox(
         item: item,

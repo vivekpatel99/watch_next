@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/created_by.dart';
 import 'package:watch_next/datamodels/genre.dart';
@@ -118,9 +119,14 @@ class TvSeriesItemModel extends HiveObject {
   });
 
   factory TvSeriesItemModel.fromJson(Map<String, dynamic> json) {
+    // Add debugging statements to check the incoming JSON
+
+    // print('Parsing JSON: $json');
+
     return TvSeriesItemModel(
       adult: json['adult'] as bool?,
-      backdropPath: json['backdrop_path'] as String?,
+      backdropPath:
+          json['backdrop_path'] != null ? json['backdrop_path'] as String : "",
       createdBy: json['created_by'] != null
           ? (json['created_by'] as List<dynamic>)
               .map((item) => CreatedBy.fromJson(item as Map<String, dynamic>))
@@ -137,7 +143,7 @@ class TvSeriesItemModel extends HiveObject {
               .map((item) => Genre.fromJson(item as Map<String, dynamic>))
               .toList()
           : null,
-      homepage: json['homepage'] as String?,
+      homepage: json['homepage'] != null ? json['homepage'] as String : null,
       id: json['id'] as int,
       inProduction: json['in_production'] as bool?,
       languages: json['languages'] != null
@@ -163,7 +169,7 @@ class TvSeriesItemModel extends HiveObject {
           : null,
       originalLanguage: json['original_language'] as String?,
       overview: json['overview'] as String?,
-      posterPath: ((json['poster_path'] as String?) != null)
+      posterPath: json['poster_path'] != null
           ? ApiConstants.apiImageEndpoint + (json['poster_path'] as String)
           : null,
       seasons: json['seasons'] != null
@@ -177,6 +183,7 @@ class TvSeriesItemModel extends HiveObject {
       voteCount: json['vote_count'] as int?,
     );
   }
+
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'adult': adult,

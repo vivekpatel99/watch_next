@@ -1,14 +1,33 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Season {
+import 'package:hive_flutter/hive_flutter.dart';
+part 'season.g.dart';
+
+@HiveType(typeId: 6) // Adjust typeId if needed
+class Season extends HiveObject {
+  @HiveField(0)
   final String? airDate;
+
+  @HiveField(1)
   final int? episodeCount;
+
+  @HiveField(2)
   final int id;
+
+  @HiveField(3)
   final String name;
+
+  @HiveField(4)
   final String? overview;
+
+  @HiveField(5)
   final String? posterPath;
+
+  @HiveField(6)
   final int? seasonNumber;
+
+  @HiveField(7)
   final double? voteAverage;
 
   Season({

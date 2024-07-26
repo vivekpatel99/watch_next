@@ -926,7 +926,7 @@ class MockHivedbService extends _i1.Mock implements _i13.HivedbService {
       );
 
   @override
-  void addModelDetails(_i11.TvSeriesSearchResult? model) => super.noSuchMethod(
+  void addModelDetails(_i4.TvSeriesItemModel? model) => super.noSuchMethod(
         Invocation.method(
           #addModelDetails,
           [model],

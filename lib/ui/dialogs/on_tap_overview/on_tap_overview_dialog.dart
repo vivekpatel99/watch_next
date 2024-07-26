@@ -43,7 +43,9 @@ class OnTapOverviewDialog extends StackedView<OnTapOverviewDialogModel> {
           children: [
             TitlePartWidget(request: request, model: model),
             verticalSpaceSmall,
-            OverviewGenreRatingWidget(model: model),
+            SingleChildScrollView(
+              child: OverviewGenreRatingWidget(model: model),
+            ),
             verticalSpaceMedium,
             ButtonsWidgets(completer: completer)
           ],
@@ -79,7 +81,7 @@ class ButtonsWidgets extends StatelessWidget {
             child: const Text(
               'Dismiss',
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -93,7 +95,7 @@ class ButtonsWidgets extends StatelessWidget {
             child: const Text(
               'Add Show',
               style: TextStyle(
-                color: Colors.grey,
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
               ),
@@ -116,7 +118,7 @@ class OverviewGenreRatingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -134,11 +136,12 @@ class OverviewGenreRatingWidget extends StatelessWidget {
             model.genres!.map((genre) => (genre.name)).join(', '),
             style: bodyStyle,
           ),
+          horizontalSpaceMedium,
           Row(
             children: [
               Image.asset(
                 Assets.imdbIcon,
-                width: 30,
+                width: 40,
                 height: 40,
               ),
               horizontalSpaceSmall,

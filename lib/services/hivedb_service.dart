@@ -1,16 +1,18 @@
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/constansts.dart';
+import 'package:watch_next/datamodels/created_by.dart';
+import 'package:watch_next/datamodels/genre.dart';
+import 'package:watch_next/datamodels/network.dart';
+import 'package:watch_next/datamodels/next_episode_to_air.dart';
+import 'package:watch_next/datamodels/season.dart';
 import 'package:watch_next/datamodels/series_item_model.dart';
 
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
-import 'package:watch_next/services/api_service.dart';
 
 class HivedbService {
   final log = getLogger('HivedbService');
-  final ApiService _apiService = locator<ApiService>();
 
   Box<TvSeriesSearchResult>? _watchListBox;
   Box<TvSeriesItemModel>? _watchListItemDetailBox;
@@ -34,6 +36,39 @@ class HivedbService {
       log.i(
           '!Hive.isBoxOpen is False and _watchListBox is set with box                             ');
     }
+
+    if (!Hive.isBoxOpen(Constansts.watchListItemDetailBox)) {
+      log.i('!Hive.isBoxOpen is True');
+
+      Hive.registerAdapter(CreatedByAdapter());
+      log.i('CreatedByAdapter registered');
+
+      Hive.registerAdapter(GenreAdapter());
+      log.i('GenreAdapter registered');
+
+      Hive.registerAdapter(NetworkAdapter());
+      log.i('NetworkAdapter registered');
+
+      Hive.registerAdapter(NextEpisodeToAirAdapter());
+      log.i('NextEpisodeToAirAdapter registered');
+
+      Hive.registerAdapter(SeasonAdapter());
+      log.i('SeasonAdapter registered');
+
+      Hive.registerAdapter(TvSeriesItemModelAdapter());
+      log.i('TvSeriesItemModelAdapter registered');
+
+      _watchListItemDetailBox =
+          await Hive.openBox(Constansts.watchListItemDetailBox);
+      // await _watchListBox!.clear();
+      log.d('_watchListItemDetailBox - $_watchListItemDetailBox');
+    } else {
+      _watchListItemDetailBox =
+          Hive.box<TvSeriesItemModel>(Constansts.watchListItemDetailBox);
+      log.d('_watchListItemDetailBox - $_watchListItemDetailBox');
+      log.i(
+          '!Hive.isBoxOpen is False and _watchListBox is set with box                             ');
+    }
   }
 
   Box? get getwatchListBox {
@@ -41,6 +76,13 @@ class HivedbService {
       log.d('_watchListBox is null - $_watchListBox');
     }
     return _watchListBox;
+  }
+
+  Box? get watchListItemDetailBox {
+    if (_watchListItemDetailBox == null) {
+      log.d('_watchListBox is null - $_watchListItemDetailBox');
+    }
+    return _watchListItemDetailBox;
   }
 
   void addModel(TvSeriesSearchResult model) async {
@@ -57,13 +99,13 @@ class HivedbService {
     }
   }
 
-  void addModelDetails(TvSeriesSearchResult model) async {
+  void addModelDetails(TvSeriesItemModel model) async {
     try {
-      if (_watchListBox?.get(model.id) != null) {
+      if (_watchListItemDetailBox?.get(model.id) != null) {
         log.i('model already exist - ${model.name}');
         return;
       } else {
-        _watchListBox!.put(model.id, model);
+        _watchListItemDetailBox!.put(model.id, model);
         log.i('model added - ${model.name}');
       }
     } catch (e) {
@@ -74,5 +116,6 @@ class HivedbService {
   void removeModel(TvSeriesSearchResult model) async {
     log.i('model removed - ${model.name}');
     await _watchListBox!.delete(model.id);
+    await _watchListItemDetailBox!.delete(model.id);
   }
 }

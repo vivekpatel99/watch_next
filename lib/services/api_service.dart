@@ -86,6 +86,7 @@ class ApiService {
     log.i('fetchTvSeriesDetails');
     try {
       final result = await sendRequest(url: url);
+      log.i('Response received: $result');
       if (result == null) {
         throw Exception('No results found');
       }
@@ -94,11 +95,13 @@ class ApiService {
       }
       final TvSeriesItemModel seriesDetails =
           TvSeriesItemModel.fromJson(result);
-      log.d(seriesDetails.name, seriesDetails.id);
+      log.d(
+          'Series Details - Name: ${seriesDetails.name}, ID: ${seriesDetails.id}');
+
       return seriesDetails;
     } catch (e) {
-      log.e(e);
-      throw Exception(e);
+      log.e('Error in fetchTvSeriesDetails: $e');
+      throw Exception('Error in fetchTvSeriesDetails: $e');
     }
   }
 }

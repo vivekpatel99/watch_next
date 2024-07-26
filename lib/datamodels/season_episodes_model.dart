@@ -1,8 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:hive_flutter/hive_flutter.dart';
+
+part 'season_episodes_model.g.dart';
+
+@HiveType(typeId: 7)
 class Season {
+  @HiveField(0)
   final String? airDate;
+  @HiveField(1)
   final List<Episode>? episodes;
 
   Season({
