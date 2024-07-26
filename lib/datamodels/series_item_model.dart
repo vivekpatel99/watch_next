@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:watch_next/app/app.logger.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/created_by.dart';
 import 'package:watch_next/datamodels/genre.dart';
