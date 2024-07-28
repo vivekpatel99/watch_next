@@ -12,7 +12,7 @@ class Episodes extends StackedView<EpisodesModel> {
     EpisodesModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
+    return const Scaffold(
       body: Text('Episodes'),
     );
   }

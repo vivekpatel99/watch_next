@@ -12,7 +12,7 @@ class Overview extends StackedView<OverviewModel> {
     OverviewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
+    return const Scaffold(
       body: Text('Overview'),
     );
   }
