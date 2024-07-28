@@ -3,6 +3,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:watch_next/app/app.dialogs.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
+import 'package:watch_next/app/app.router.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/series_item_model.dart';
 import 'package:watch_next/services/api_service.dart';
@@ -11,9 +12,14 @@ import 'package:watch_next/services/hivedb_service.dart';
 class MyListTileModel extends BaseViewModel {
   final _dialogService = locator<DialogService>();
   final _hivedbService = locator<HivedbService>();
+  final _navigationService = locator<NavigationService>();
 
   final _apiService = locator<ApiService>();
   final log = getLogger('MyListTileModel');
+
+  void gotoWatchListItemDetails({required itemId, required String name}) =>
+      _navigationService.navigateToWatchListItemDetailsView(
+          name: name, itemId: itemId);
   void showDialog({required int contentId}) async {
     log.i('showDialog with $contentId');
 
