@@ -6,9 +6,14 @@ class ShowCachedImage extends StatelessWidget {
   final double? width;
   final double? height;
   final String? posterUrl;
+  final BoxFit? boxFit;
 
   const ShowCachedImage(
-      {super.key, required this.posterUrl, this.height, this.width});
+      {super.key,
+      required this.posterUrl,
+      this.height,
+      this.width,
+      this.boxFit = BoxFit.contain});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,7 @@ class ShowCachedImage extends StatelessWidget {
       cacheManager: Constansts.customCacheManager,
       key: UniqueKey(),
       imageUrl: posterUrl!,
-      fit: BoxFit.contain,
+      fit: boxFit,
       placeholder: (context, url) => const CircularProgressIndicator(),
       errorWidget: (context, url, error) => const Icon(Icons.error),
       fadeInDuration: const Duration(seconds: 3),

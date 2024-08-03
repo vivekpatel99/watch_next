@@ -27,9 +27,7 @@ class ApiService {
   // https://api.themoviedb.org/3/tv/{series_id}/season/{season_number}?api_key=dotenv.env['API_KEY']
 
   Future<dynamic> sendRequest({required String url}) async {
-    // TODO use Either and throw Error when 3 try attempt finishes
     log.i('sendRequest');
-    // http.Response? response;
 
     const retryOption = RetryOptions(
       maxAttempts: 3, // Number of retry attempts

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:watch_next/datamodels/series_item_model.dart';
 
 import 'episodes_model.dart';
 
 class Episodes extends StackedView<EpisodesModel> {
-  const Episodes({super.key});
+  final TvSeriesItemModel seriesDetailsModel;
+  const Episodes({super.key, required this.seriesDetailsModel});
 
   @override
   Widget builder(
@@ -12,14 +14,11 @@ class Episodes extends StackedView<EpisodesModel> {
     EpisodesModel viewModel,
     Widget? child,
   ) {
-    return const Scaffold(
-      body: Text('Episodes'),
+    return Scaffold(
+      body: Text(seriesDetailsModel.name),
     );
   }
 
   @override
-  EpisodesModel viewModelBuilder(
-    BuildContext context,
-  ) =>
-      EpisodesModel();
+  EpisodesModel viewModelBuilder(BuildContext context) => EpisodesModel();
 }

@@ -23,7 +23,7 @@ Future<void> main() async {
 
   setupDialogUi();
   setupBottomSheetUi();
-  Logger.level = Level.debug;
+  Logger.level = Level.info;
   runApp(const MainApp());
 }
 

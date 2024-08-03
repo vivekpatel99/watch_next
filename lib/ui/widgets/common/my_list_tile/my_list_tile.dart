@@ -29,11 +29,19 @@ class MyListTile extends StackedView<MyListTileModel> {
     Widget? child,
   ) {
     return ListTile(
-      isThreeLine: true,
+      contentPadding: EdgeInsets.zero,
+      minLeadingWidth: 0.0,
+      // minVerticalPadding: ,
       enableFeedback: true,
       leading: (posterUrl == null)
-          ? const Icon(Icons.error)
-          : ShowCachedImage(posterUrl: posterUrl),
+          ? const Icon(
+              Icons.error,
+            )
+          : ShowCachedImage(
+              posterUrl: posterUrl,
+              // height: 120,
+              // width: 100,
+            ),
       title: Text(item.name, style: subheadingStyle),
       subtitle: Text(
         item.overview,
@@ -59,55 +67,3 @@ class MyListTile extends StackedView<MyListTileModel> {
   ) =>
       MyListTileModel();
 }
-
-// void _showCardOnTap(
-//     BuildContext context, String posterUrl, TvSeriesSearchResult item) {
-//   // TODO add background blur
-//   showDialog(
-//     useSafeArea: true,
-//     context: context,
-//     builder: (BuildContext context) => Padding(
-//       padding: const EdgeInsets.all(15.0),
-//       child: Dialog(
-//         insetPadding: EdgeInsets.zero,
-//         child: Card(
-//           margin: EdgeInsets.zero,
-//           clipBehavior: Clip.antiAlias,
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.circular(23.0),
-//           ),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Row(
-//                 mainAxisAlignment:
-//                     MainAxisAlignment.start, // Align to the start
-//                 crossAxisAlignment: CrossAxisAlignment.start, //
-//                 children: [
-//                   ShowCachedImage(
-//                     posterUrl: posterUrl,
-//                     height: 100,
-//                     width: 80,
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.only(left: 10),
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       mainAxisAlignment: MainAxisAlignment.start,
-//                       children: [
-//                         Text(item.name, style: heading3Style),
-//                         Text("${item.firstAirDate.year.toString()}/${item.}",
-//                             style: subheadingStyle),
-//                       ],
-//                     ),
-//                   )
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     ),
-//   );
-// }
