@@ -1,8 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:watch_next/app/app.bottomsheets.dart';
 import 'package:watch_next/app/app.locator.dart';
-import 'package:watch_next/ui/common/app_strings.dart';
 import 'package:watch_next/ui/views/home/home_viewmodel.dart';
 
 import '../helpers/test_helpers.dart';
