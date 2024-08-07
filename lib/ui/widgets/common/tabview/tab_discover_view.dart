@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,22 +18,35 @@ class TabDiscoverView extends StackedView<TabviewDiscoverModel> {
     TabviewDiscoverModel viewModel,
     Widget? child,
   ) {
-    final data = viewModel.futureToRun();
+    Future<List<TvSeriesSearchResult>?> data = viewModel.futureToRun();
+
+    // data.either((left) {
+    //   viewModel.setError(true);
+    //   _error = left.toString();
+    // }, (right) => data as Future<List<TvSeriesSearchResult>>);
+
+    // // Future<List<TvSeriesSearchResult>>? data = null;
+    // try {
+    //   data = viewModel.futureToRun();
+    // } catch (e) {
+    //   viewModel.setError(true);
+    //   Future<List<TvSeriesSearchResult>>? data = null;
+    // }
+
     return viewModel.hasError
         ? Container(
             color: Colors.red,
             alignment: Alignment.center,
-            child: const Text(
-              'An error has occered while running the future',
-              style: TextStyle(color: Colors.white),
+            child: Text(
+              'An error has occered while running the future ${viewModel.error(viewModel)}',
+              style: const TextStyle(color: Colors.white),
             ),
           )
         : viewModel.isBusy
             ? const Center(child: CircularProgressIndicator())
             : FutureBuilder(
                 future: data,
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<TvSeriesSearchResult>> snapshot) {
+                builder: (BuildContext context, snapshot) {
                   return (snapshot.data == null)
                       ? const Center(child: CircularProgressIndicator())
                       : ListView.builder(

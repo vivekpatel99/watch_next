@@ -7,6 +7,7 @@ import 'package:watch_next/app/app.logger.dart';
 import 'package:http/http.dart' as http;
 import 'package:watch_next/datamodels/series_item_model.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
+import 'package:watch_next/common/errors/exceptions.dart';
 
 class ApiService {
   final log = getLogger('ApiService');
@@ -67,6 +68,10 @@ class ApiService {
       final result = await sendRequest(url: url);
       if (result['results'] == null) {
         throw Exception('No results found');
+      }
+      final List<dynamic> resultList = result['results'];
+      if (resultList.isEmpty) {
+        throw const ServerException('No Series Found');
       }
       final List<TvSeriesSearchResult> searchTvSeries =
           (result['results'] as List<dynamic>)

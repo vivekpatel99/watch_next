@@ -13,6 +13,7 @@ class SearchqueryService with ListenableServiceMixin {
 
   void searchQuerySet(value) {
     log.i('searchQuerySet - $value');
+
     _searchValue = value;
     notifyListeners();
   }
