@@ -1,8 +1,6 @@
-import 'package:either_dart/either.dart';
 import 'package:stacked/stacked.dart';
 import 'package:watch_next/app/app.locator.dart';
 import 'package:watch_next/app/app.logger.dart';
-import 'package:watch_next/common/errors/exceptions.dart';
 import 'package:watch_next/contants/api_constants.dart';
 import 'package:watch_next/datamodels/tv_series_search_response_model.dart';
 import 'package:watch_next/services/api_service.dart';
